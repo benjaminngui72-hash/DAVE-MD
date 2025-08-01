@@ -48,7 +48,7 @@ _*Dont forget to fork & star repo*_
     
 <div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #ff00ff;">
   <p style="color: #00ffff;">First star & Fork repo using button Below</p>
-  <a href='https://github.com/giftedsession/DAVE-MD/fork' target="_blank">
+  <a href='https://github.com/giftdee/DAVE-MD/fork' target="_blank">
     <img src='https://img.shields.io/badge/FORK_REPOSITORY-008000?style=for-the-badge&logo=github&logoColor=white&labelColor=000000'/>
   </a>
 </div>
@@ -87,7 +87,7 @@ _Deploy the bot and easily connect it to your WhatsApp account by pair code. Bel
 
 _Download Bot Zip file From the button Bellow_
 <p align="left">
-    <a href="https://codeload.github.com/giftedsession/DAVE-MD/zip/refs/heads/main" target="_blank">
+    <a href="https://codeload.github.com/gifdee/DAVE-MD/zip/refs/heads/main" target="_blank">
         <img alt="Download zip" src="https://img.shields.io/badge/Download Zip-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkorange&color=purple"/>
     </a>
 </p>

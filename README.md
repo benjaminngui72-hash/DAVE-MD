@@ -32,7 +32,7 @@ _*Dont forget to fork & star repo*_
 </div>
 <div align="center">
   <a href="githublink"><img title="Followers" src="https://img.shields.io/github/followers/giftdee?color=EB5406&style=for-the-badge&logo=github&logoColor=white"></a>
-  <a href="repolink"><img title="Stars" src="https://img.shields.io/github/stars/giftdeee/DAVE-MD?color=FFCE44&style=for-the-badge&logo=reverbnation&logoColor=white"></a>
+  <a href="repolink"><img title="Stars" src="https://img.shields.io/github/stars/giftdee/DAVE-MD?color=FFCE44&style=for-the-badge&logo=reverbnation&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/network/members"><img title="Forks" src="https://img.shields.io/github/forks/giftdee/DAVE-MD?color=FF007F&style=for-the-badge&logo=git&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/"><img title="Size" src="https://img.shields.io/github/repo-size/giftdee/DAVE-MD?style=for-the-badge&color=FFF333&logo=docusign&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/graphs/commit-activity"><img height="28" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge&logo=gitpod&logoColor=white"></a>

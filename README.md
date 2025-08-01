@@ -85,12 +85,8 @@ _Deploy the bot and easily connect it to your WhatsApp account by pair code. Bel
 
 > 3: **DOWNLOAD BOT ZIP**
 
-_Download Bot Zip file From the button Bellow_
-<p align="left">
-    <a href="https://codeload.github.com/gifdee/DAVE-MD/zip/refs/heads/main" target="_blank">
-        <img alt="Download zip" src="https://img.shields.io/badge/Download Zip-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkorange&color=purple"/>
-    </a>
-</p>
+_Download Bot Zip file From the button 
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?logo=github&style=for-the-badge)](https://github.com/giftdee/DAVE-MD/archive/refs/heads/main.zip)
 
 ---
 

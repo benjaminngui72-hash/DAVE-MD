@@ -15,7 +15,7 @@ node_modules/
  
  # Session files
  session/
- 
+ creds.json
 
  # Environment variables
  .env
@@ -34,3 +34,6 @@ node_modules/
  *.njsproj
  *.sln
  *.sw?
+other 
+*.zip
+*.tar

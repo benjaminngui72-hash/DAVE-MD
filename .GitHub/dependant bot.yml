@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/" # location of your package.json
+    schedule:
+      interval: "weekly" # can be "daily", "weekly", or "monthly"
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-type: "direct" # only update dependencies listed in package.json
+    commit-message:
+      prefix: "🔒 depbot"
+      include: "scope"
+
+# Optional: Enable GitHub security fixes
+  - package-ecosystem: "github-actions"
+    directory: "/" # if you use GitHub Actions
+    schedule:
+      interval: "weekly"

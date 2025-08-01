@@ -1,0 +1,8 @@
+.termux/node_modules/ .env .npm/ storage/
+.ssh/
+.termux/
+.ssh/
+
+session/
+node_modules/
+.env

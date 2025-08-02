@@ -6,26 +6,45 @@ const path = require('path');
 async function githubCommand(sock, chatId, message) {
   try {
     const res = await fetch('https://api.github.com/repos/giftdee/DAVE-MD');
-    if (!res.ok) throw new Error('Error fetching GitHub repo info');
+    if (!res.ok) throw new Error('Failed to fetch repository data');
 
-    const data = await res.json();
+    const json = await res.json();
 
-    let caption = `🔧 *𝐃𝐀𝐕𝐄-𝐌𝐃 Repository Info*\n\n`;
-    caption += `🔹 *Project Name:* ${data.name.toUpperCase()}\n`;
-    caption += `🔹 *Size:* ${(data.size / 1024).toFixed(2)} MB\n`;
-    caption += `🔹 *Watchers:* ${data.watchers_count}\n`;
-    caption += `🔹 *Stars:* ${data.stargazers_count}\n`;
-    caption += `🔹 *Forks:* ${data.forks_count}\n`;
-    caption += `🔹 *Updated On:* ${moment(data.updated_at).tz('Africa/Nairobi').format('DD MMM YYYY • HH:mm:ss')}\n\n`;
-    caption += `🌐 *GitHub Link:*\n${data.html_url}\n\n`;
-    caption += `🪄 _Support the project by forking & starring the repo!_`;
+    const caption = `
+┏━〔 *𝐃𝐀𝐕𝐄-𝐌𝐃 𝙍𝙀𝙋𝙊* 〕━⬣
+┃ 🔹 *Name:* ${json.name}
+┃ 🔸 *Size:* ${(json.size / 1024).toFixed(2)} MB
+┃ ⭐ *Stars:* ${json.stargazers_count}
+┃ 🍴 *Forks:* ${json.forks_count}
+┃ 👀 *Watchers:* ${json.watchers_count}
+┃ ⏱️ *Updated:* ${moment(json.updated_at).tz('Africa/Nairobi').format('DD MMM YYYY, HH:mm:ss')}
+┃ 🌐 *Link:* ${json.html_url}
+┃ 🪄 _Star & Fork the Repo!_
+┗━━━━━━━━━━━━━━━━━━⬣`;
 
-    const imagePath = path.join(__dirname, '../assets/Dave_repo.jpg');
-    const image = fs.readFileSync(imagePath);
+    const imgPath = path.join(__dirname, '../assets/Dave_repo.jpg');
+    const imageBuffer = fs.readFileSync(imgPath);
 
-    await sock.sendMessage(chatId, { image, caption }, { quoted: message });
+    await sock.sendMessage(
+      chatId,
+      {
+        image: imageBuffer,
+        caption,
+        contextInfo: {
+          forwardingScore: 999,
+          isForwarded: true,
+          forwardedNewsletterMessageInfo: {
+            newsletterJid: '120363400480173280@newsletter',
+            newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 UPDATES',
+            serverMessageId: -1
+          }
+        }
+      },
+      { quoted: message }
+    );
   } catch (err) {
-    await sock.sendMessage(chatId, { text: '⚠️ Failed to fetch repo info. Try again later.' }, { quoted: message });
+    console.error('GitHub command error:', err);
+    await sock.sendMessage(chatId, { text: '❌ Unable to fetch repo info. Try again later.' }, { quoted: message });
   }
 }
 

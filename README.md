@@ -95,7 +95,6 @@ _Download Bot Zip file From the button
 
 
 ### 📽️ Deployment Tutorial
-### 📽️ Deployment Tutorial
 [![Watch Video](https://img.shields.io/badge/Watch%20on-YouTube-red?logo=youtube)](https://youtu.be/oewdMmpkUCM?si=o6vdNtDCX0R5O_re)
 
 ### 📽️ Tutorial 2

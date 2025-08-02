@@ -38,14 +38,14 @@ function runtime(seconds) {
 async function helpCommand(conn, m, quoted, commands = []) {
   const uptime = formatUptime(Date.now() - startTime);
   const menuCaption = `
-━━┏━━⬣ ⌜\𝐃𝐀𝐕𝐄-𝐌𝐃\⌟
-│ ─≽ *Creator* :*『𝐆𝐈𝐅𝐓𝐄𝐃 𝐃𝐀𝐕𝐄』*
-│ ─≽ *Owner*   :*${settings.botOwner || '𝐃𝐀𝐕𝐄'}*
-│ ─≽ *Version* :*${settings.version || '2.0.0'}*
-│ ─≽ *Runtime* :*${runtime(process.uptime())}*
-│ ─≽ *plugins* : *376*
-│ ─≽ *Ram*     :${ram()}t
-
+╭━━━〔𝐃𝐀𝐕𝐄-𝐌𝐃〕━━⬣
+┃ 🔥 𝘾𝙧𝙚𝙖𝙩𝙤𝙧 : \`『𝙂𝙄𝙁𝙏𝙀𝘿 𝘿𝘼𝙑𝙀』\`
+┃ 🧨 𝙊𝙬𝙣𝙚𝙧   : ${settings.botOwner || '𝘿𝘼𝙑𝙀'}
+┃ 💣 𝙑𝙚𝙧𝙨𝙞𝙤𝙣 : ${settings.version || '2.0.0'}
+┃ ⏱️ 𝙍𝙪𝙣𝙩𝙞𝙢𝙚 : ${runtime(process.uptime())}
+┃ 🧩 𝙋𝙡𝙪𝙜𝙞𝙣𝙨 : \`420\`
+┃ 💊 𝙍𝘼𝙈     : ${ram()}t
+╰━━━━━━━━━━━━━━━━━━⬣
 ┏━━「 \`Mode\` 」
 │ ─≽ *private*
 │ ─≽ *public*
@@ -242,7 +242,7 @@ async function helpCommand(conn, m, quoted, commands = []) {
 │──────♢
 ┗━━⬣ ⌜ \`New version\`⌟
 
-> ʀᴇɢᴀʀᴅs 𝐃𝐀𝐕𝐄 𝗧𝗘𝗖𝗛👻
+> 🔚 𝐌𝐮𝐜𝐡 𝐋𝐨𝐯𝐞, 𝘿𝘼𝙑𝙀-𝙏𝙀𝘾𝙃
 `;
 
   try {
@@ -256,7 +256,7 @@ async function helpCommand(conn, m, quoted, commands = []) {
             isForwarded: true,
             forwardedNewsletterMessageInfo: {
               newsletterJid: '120363400480173280@newsletter',
-              newsletterName: 'POWERED BY GIFTED DAVE 𝗧𝗘𝗖𝗛',
+              newsletterName: 'POWERED BY GIFTED 𝘿𝘼𝙑𝙀-𝗧𝗘𝗖𝗛',
               serverMessageId: -1
             }
           }
@@ -268,7 +268,7 @@ async function helpCommand(conn, m, quoted, commands = []) {
             isForwarded: true,
             forwardedNewsletterMessageInfo: {
               newsletterJid: '120363400480173280@newsletter',
-              newsletterName: 'POWERED BY GIFTED DAVE 𝗧𝗘𝗖𝗛',
+              newsletterName: 'POWERED BY GIFTED 𝘿𝘼𝙑𝙀-𝗧𝗘𝗖𝗛',
               serverMessageId: -1
             }
           }
@@ -281,7 +281,4 @@ async function helpCommand(conn, m, quoted, commands = []) {
   }
 }
 
-module.exports = {
-  command: ['menu', 'help'],
-  handler: helpCommand
-};
+module.exports = helpCommand;

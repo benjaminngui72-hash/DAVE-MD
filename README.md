@@ -61,7 +61,9 @@ _Click the button below to fork DAVE-MD repository to your GitHub account_
 [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Click+here+to+pair+DAVE-MD+now!)](https://source-codes-5tm6.onrender.com/)  
 [![Click Here](https://img.shields.io/badge/Click%20Here%20To%20Pair-DAVE--MD-blue?style=for-the-badge&logo=linktree)](https://source-codes-5tm6.onrender.com/)
 
-###site 2
+---
+
+### 💠 use only if first site fails
 <div align="left">
 <a href="https://davepairing.onrender.com/" target="_blank">
   <img src="https://img.shields.io/badge/site 1%20(Render)-Pair%20Now-blue?style=for-the-badge&logo=render" alt="Render Pairing"/>
@@ -77,16 +79,17 @@ _Click the button below to fork DAVE-MD repository to your GitHub account_
 
 ---
 
-###DOWNLOAD BOT ZIP
+
+### 💠 DOWNLOAD DAVE-MD ZIP 
 
 _Download Bot Zip file From the button 
 [![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?logo=github&style=for-the-badge)](https://github.com/giftdee/DAVE-MD/archive/refs/heads/main.zip)
 
 ---
 
-###Deploy Now
+### DEPLOY KNOW
 
-_For further setup & guidance, click the button below🩹_
+> _For further setup & guidance, click the button below🩹_
 [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Watch+The+Deployment+Tutorials;Bellow+For+FreePanel+Deployments)](https://git.io/typing-svg)
 
 

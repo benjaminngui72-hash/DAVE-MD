@@ -57,11 +57,12 @@ _Click the button below to fork DAVE-MD repository to your GitHub account_
 
 ---
 
-> 2:  **Get Pair Code**
+### 💠 Pair Your DAVE-MD Session  
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Click+here+to+pair+DAVE-MD+now!)](https://source-codes-5tm6.onrender.com/)  
+[![Click Here](https://img.shields.io/badge/Click%20Here%20To%20Pair-DAVE--MD-blue?style=for-the-badge&logo=linktree)](https://source-codes-5tm6.onrender.com/)
 
-_Deploy the bot and easily connect it to your WhatsApp account by pair code. Below 🥈_
+###site 2
 <div align="left">
-
 <a href="https://davepairing.onrender.com/" target="_blank">
   <img src="https://img.shields.io/badge/site 1%20(Render)-Pair%20Now-blue?style=for-the-badge&logo=render" alt="Render Pairing"/>
 </a><br><br>

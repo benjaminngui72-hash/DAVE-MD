@@ -22,6 +22,9 @@ node_modules/
  
  # Log files
  *.log
+logs/
+*.tmp
+*.bak
  npm-debug.log*
  yarn-debug.log*
  yarn-error.log*
@@ -37,3 +40,15 @@ node_modules/
 other 
 *.zip
 *.tar
+# 🎵 Media & temporary files (voice/audio configs, etc.)
+media/
+temp/
+downloads/
+
+#  cache or runtime output
+.cache/
+.cache-loader/
+dist/
+build/
+
+

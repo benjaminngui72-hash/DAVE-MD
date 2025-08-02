@@ -32,7 +32,7 @@ _*Dont forget to fork & star repo*_
 </div>
 <div align="center">
   <a href="githublink"><img title="Followers" src="https://img.shields.io/github/followers/giftdee?color=EB5406&style=for-the-badge&logo=github&logoColor=white"></a>
-  <a href="repolink"><img title="Stars" src="https://img.shields.io/github/stars/giftdee/DAVE-MD?color=FFCE44&style=for-the-badge&logo=reverbnation&logoColor=white"></a>
+  <a href="repolink"><img title="Stars" src="https://img.shields.io/github/stars/giftdeee/DAVE-MD?color=FFCE44&style=for-the-badge&logo=reverbnation&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/network/members"><img title="Forks" src="https://img.shields.io/github/forks/giftdee/DAVE-MD?color=FF007F&style=for-the-badge&logo=git&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/"><img title="Size" src="https://img.shields.io/github/repo-size/giftdee/DAVE-MD?style=for-the-badge&color=FFF333&logo=docusign&logoColor=white"></a>
   <a href="https://github.com/giftdee/DAVE-MD/graphs/commit-activity"><img height="28" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge&logo=gitpod&logoColor=white"></a>
@@ -44,23 +44,17 @@ _*Dont forget to fork & star repo*_
 
 ## ⚙️𝗗𝗘𝗣𝗟𝗢𝗬𝗠𝗘𝗡𝗧𝗦
 
-<div style="background: #000000; border: 1px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 15px #00ffff; margin-bottom: 30px;">
-    
-<div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #ff00ff;">
-  <p style="color: #00ffff;">First star & Fork repo using button Below</p>
-  <a href='https://github.com/giftdee/DAVE-MD/fork' target="_blank">
-    <img src='https://img.shields.io/badge/FORK_REPOSITORY-008000?style=for-the-badge&logo=github&logoColor=white&labelColor=000000'/>
+> 1:  **Fork the Repository**
+
+_Click the button below to fork  June Md repository to your GitHub account_
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Tap+fork+button+Bellow+To+Fork; DAVE+MD+REPO+On+Github)](https://git.io/typing-svg)
+> <div align="left">
+  <a href="https://github.com/giftdee/DAVE-MD/fork">
+    <img src="https://img.shields.io/badge/Fork%20Repo-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkblue&color=darkblue" alt="FORK REPO"/>
   </a>
 </div>
 
-</div>
-
-<div style="background: #000000; border: 1px solid #ff00ff; border-radius: 15px; padding: 20px; box-shadow: 0 0 15px #ff00ff; margin-bottom: 30px;">
-  
-<div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #00ffff;">
-  
 ---
-
 
 ---
 
@@ -83,12 +77,17 @@ _Deploy the bot and easily connect it to your WhatsApp account by pair code. Bel
 
 ---
 
-> 3: **DOWNLOAD BOT ZIP**
+###DOWNLOAD BOT ZIP
 
 _Download Bot Zip file From the button 
 [![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?logo=github&style=for-the-badge)](https://github.com/giftdee/DAVE-MD/archive/refs/heads/main.zip)
 
 ---
+###Deploy Now
+
+_For further setup & guidance, click the button below🩹_
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Watch+The+Deployment+Tutorials;Bellow+For+FreePanel+Deployments)](https://git.io/typing-svg)
+
 
 
 ### 📽️ Deployment Tutorial

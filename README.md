@@ -45,16 +45,15 @@ _*Dont forget to fork & star repo*_
 ## ⚙️𝗗𝗘𝗣𝗟𝗢𝗬𝗠𝗘𝗡𝗧𝗦
 
 > 1:  **Fork the Repository**
+_Click the button below to fork DAVE-MD repository to your GitHub account_
 
-_Click the button below to fork  June Md repository to your GitHub account_
-[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Tap+fork+button+Bellow+To+Fork; DAVE+MD+REPO+On+Github)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Tap+fork+button+Bellow+To+Fork;DAVE+MD+REPO+On+Github)](https://github.com/giftdee/DAVE-MD/fork)
+
 > <div align="left">
   <a href="https://github.com/giftdee/DAVE-MD/fork">
     <img src="https://img.shields.io/badge/Fork%20Repo-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkblue&color=darkblue" alt="FORK REPO"/>
   </a>
 </div>
-
----
 
 ---
 

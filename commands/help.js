@@ -1,4 +1,4 @@
- //GIFTEDDAVE PROPERTY 😊
+// GIFTEDDAVE PROPERTY 😊
 
 const settings = require('../settings');
 const fs = require('fs');
@@ -246,43 +246,39 @@ async function helpCommand(conn, m, quoted, commands = []) {
 `;
 
   try {
-        const imagePath = path.join(__dirname, '../assets/Dave_menu.jpg');
-        
-        if (fs.existsSync(imagePath)) {
-            const imageBuffer = fs.readFileSync(imagePath);
-            
-            await sock.sendMessage(chatId, {
-                image: imageBuffer,
-                caption: helpMessage,
-                contextInfo: {
-                    forwardingScore: 1,
-                    isForwarded: false,
-                    forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363400480173280@newsletter',
-                        newsletterName: '',
-                        serverMessageId: -1
-                    }
-                }
-            },{ quoted: message });
-        } else {
-            console.error('Bot image not found at:', imagePath);
-            await sock.sendMessage(chatId, { 
-                text: helpMessage,
-                contextInfo: {
-                    forwardingScore: 1,
-                    isForwarded: false,
-                    forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363400480173280@newsletter',
-                        newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
-                        serverMessageId: -1
-                    } 
-                }
-            });
+    const imagePath = path.join(__dirname, '../assets/Dave_menu.jpg');
+    const messagePayload = fs.existsSync(imagePath)
+      ? {
+          image: fs.readFileSync(imagePath),
+          caption: menuCaption,
+          contextInfo: {
+            forwardingScore: 1,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+              newsletterJid: '120363400480173280@newsletter',
+              newsletterName: 'POWERED BY GIFTED 𝘿𝘼𝙑𝙀-𝗧𝗘𝗖𝗛',
+              serverMessageId: -1
+            }
+          }
         }
-    } catch (error) {
-        console.error('Error in help command:', error);
-        await sock.sendMessage(chatId, { text: helpMessage });
-    }
+      : {
+          text: menuCaption,
+          contextInfo: {
+            forwardingScore: 1,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+              newsletterJid: '120363400480173280@newsletter',
+              newsletterName: 'POWERED BY GIFTED 𝘿𝘼𝙑𝙀-𝗧𝗘𝗖𝗛',
+              serverMessageId: -1
+            }
+          }
+        };
+
+    await conn.sendMessage(m, messagePayload, { quoted });
+  } catch (err) {
+    console.error('Error in help command:', err);
+    await conn.sendMessage(m, { text: menuCaption });
+  }
 }
 
 module.exports = helpCommand;

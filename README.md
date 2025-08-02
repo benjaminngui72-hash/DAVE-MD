@@ -81,7 +81,12 @@ _Deploy the bot and easily connect it to your WhatsApp account by pair code. Bel
 _Download Bot Zip file From the button 
 [![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue?logo=github&style=for-the-badge)](https://github.com/giftdee/DAVE-MD/archive/refs/heads/main.zip)
 
+### 📺 Tutorial 2
+
+[![Watch on YouTube](https://img.shields.io/badge/Watch%20Tutorial%202%20on%20YouTube-red?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/94V78PGHn7Q?si=vnaTpq85xPvLHQeD)
+
 ---
+
 ###Deploy Now
 
 _For further setup & guidance, click the button below🩹_

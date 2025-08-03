@@ -101,7 +101,7 @@ const videoCommand = require('./commands/video');
 global.packname = settings.packname;
 global.author = settings.author;
 global.channelLink = "https://whatsapp.com/channel/0029VbApvFQ2Jl84lhONkc3k";
-global.ytch = "supremLord";
+global.ytch = "Gifteddave";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {

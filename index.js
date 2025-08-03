@@ -1,4 +1,4 @@
-///➤➤➤➤➤➤➤DAVE➤MD➤➤➤➤➤➤//
+///DON'T COPY WITHOUT PERMISSION//
 
 
 require('./settings')
@@ -147,7 +147,7 @@ async function startXeonBotInc() {
                             isForwarded: false,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '@newsletter',
-                                newsletterName: '𝐉ᴜɴᴇ 𝐌ᴅ',
+                                newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
                                 serverMessageId: -1
                             }
                         }

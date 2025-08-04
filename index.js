@@ -1,6 +1,6 @@
 ///DON'T COPY WITHOUT PERMISSION//
 /**
- * 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 - WhatsApp Bot
+ * 𝐃𝐀𝐕𝐄-𝐌𝐃 - WhatsApp Bot
  * 
  * Copyright (c) 2025 giftdee 
  * Licensed under the MIT License
@@ -13,7 +13,6 @@
  * 
  * Any fork must retain visible credits in both code and output.
  */
-
 require('./settings')
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')

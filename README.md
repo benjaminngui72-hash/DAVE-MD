@@ -124,3 +124,13 @@ _Download Bot Zip file From the button
 
 ---
 
+## 📜 License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+> ⚠️ **Conditions of Use**:
+> - Visible credits to the original author **DAVE-MD by giftdee** must remain in both source code and bot output.
+> - **Rebranding, removing credits, or redistributing** the code without permission is a **violation of the license**.
+> - You may modify and use the bot, but you **must keep attribution** intact and **not mislead others** about authorship.
+
+Violation of these terms may result in takedown actions or license revocation.

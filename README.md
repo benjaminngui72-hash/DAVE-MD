@@ -75,7 +75,23 @@ _Click the button below to fork DAVE-MD repository to your GitHub account_
 
 </div>
 
-> You then upload your creds.json to session folder or just copy paste on the creds.json file on the session folder then put your details on settings.js then start
+## 🔑 How to Pair WhatsApp incase shortened way to avoid pairing 
+
+1. Start the bot in your terminal.
+
+2. You will be asked:
+   **"Enter your WhatsApp number:"**
+
+   👉 Type your number (e.g. `+254...`) and press Enter.
+
+3. A **pairing code** will appear in the terminal.
+
+4. Open WhatsApp on your phone:
+   Go to **Linked Devices > Link a Device > Enter Code**.
+
+5. Type the code shown in the terminal.
+
+✅ Done! Your WhatsApp is now linked and the bot is active.
 
 ---
 

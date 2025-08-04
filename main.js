@@ -868,8 +868,8 @@ async function handleGroupParticipantUpdate(sock, update) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: channelId,
-                            newsletterName: 'June MD',
+                            newsletterJid: '120363400480173280@newsletter',
+                            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                             serverMessageId: -1
                         }
                     }
@@ -907,8 +907,8 @@ async function handleGroupParticipantUpdate(sock, update) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: channelId,
-                            newsletterName: 'June MD',
+                            newsletterJid: '120363400480173280@newsletter',
+                            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                             serverMessageId: -1
                         }
                     }

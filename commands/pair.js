@@ -62,8 +62,8 @@ async function pairCommand(sock, chatId, message, q) {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD',
+                        newsletterJid: '120363400480173280@newsletter',',
+                        newsletterName: 'DAVE-MD',
                         serverMessageId: -1
                     }
                 }
@@ -123,7 +123,7 @@ async function pairCommand(sock, chatId, message, q) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363400480173280@newsletter',
-                    newsletterName: '120363302677217436',
+                    newsletterName: 'DAVE-MD',
                     serverMessageId: -1
                 }
             }

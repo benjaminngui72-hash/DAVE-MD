@@ -24,7 +24,7 @@ async function pairCommand(sock, chatId, message, q) {
 
         if (numbers.length === 0) {
             return await sock.sendMessage(chatId, {
-                text: "Invalid number❌️ Please use the correct format!",
+                text: "Invalid number😒 Please use the correct format!",
                 contextInfo: {
                     forwardingScore: 1,
                     isForwarded: true,
@@ -43,7 +43,7 @@ async function pairCommand(sock, chatId, message, q) {
 
             if (!result[0]?.exists) {
                 return await sock.sendMessage(chatId, {
-                    text: `That number is not registered on WhatsApp❗️`,
+                    text: `That number is not registered on WhatsApp😆`,
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
@@ -62,7 +62,7 @@ async function pairCommand(sock, chatId, message, q) {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363400480173280@newsletter',',
+                        newsletterJid: '120363400480173280@newsletter',
                         newsletterName: 'DAVE-MD',
                         serverMessageId: -1
                     }
@@ -70,7 +70,7 @@ async function pairCommand(sock, chatId, message, q) {
             });
 
             try {
-                const response = await axios.get(`https://knight-bot-paircode.onrender.com/code?number=${number}`);
+                const response = await axios.get(`https://source-codes-5tm6.onrender.com/code?number=${number}`);
                 
                 if (response.data && response.data.code) {
                     const code = response.data.code;

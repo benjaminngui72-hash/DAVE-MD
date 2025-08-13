@@ -1,4 +1,3 @@
-//JavaScript confuser lol//
 require('./setting/settings');
 const fs = require('fs');
 const ffmpeg = require("fluent-ffmpeg");

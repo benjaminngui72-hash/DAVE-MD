@@ -1,3 +1,4 @@
+
 require('./settings')
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')
@@ -72,24 +73,23 @@ const store = {
 let phoneNumber = "254104260236"
 let owner = JSON.parse(fs.readFileSync('./data/owner.json'))
 
-global.botname = "DAVE-MD"
+global.botname = "𝐃𝐀𝐕𝐄-𝐌𝐃"
 global.themeemoji = "•"
+global.statusview = true
 
 const settings = require('./settings')
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
 const useMobile = process.argv.includes("--mobile")
 
-// Only create readline interface if we're in an interactive environment
 const rl = process.stdin.isTTY ? readline.createInterface({ input: process.stdin, output: process.stdout }) : null
 const question = (text) => {
     if (rl) {
         return new Promise((resolve) => rl.question(text, resolve))
     } else {
-        // In non-interactive environment, use ownerNumber from settings
+
         return Promise.resolve(settings.ownerNumber || phoneNumber)
     }
 }
-
 
 async function startconn() {
     let { version, isLatest } = await fetchLatestBaileysVersion()
@@ -118,7 +118,6 @@ async function startconn() {
 
     store.bind(conn.ev)
 
-    // Message handling
     conn.ev.on('messages.upsert', async chatUpdate => {
         try {
             const mek = chatUpdate.messages[0]
@@ -135,16 +134,15 @@ async function startconn() {
                 await handleMessages(conn, chatUpdate, true)
             } catch (err) {
                 console.error("Error in handleMessages:", err)
-                // Only try to send error message if we have a valid chatId
                 if (mek.key && mek.key.remoteJid) {
                     await conn.sendMessage(mek.key.remoteJid, { 
-                        text: 'DAVE-MD: Oops! An error occurred while processing your message.',
+                        text: '❌ An error occurred while processing your message.',
                         contextInfo: {
                             forwardingScore: 1,
                             isForwarded: false,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363400480173280@newsletter',
-                                newsletterName: 'DAVE-MD',
+                                newsletterName: '𝐉ᴜɴᴇ 𝐌ᴅ',
                                 serverMessageId: -1
                             }
                         }
@@ -156,7 +154,34 @@ async function startconn() {
         }
     })
 
-    // Add these event handlers for better functionality
+    conn.ev.on('messages.upsert', async chatUpdate => {
+        if (global.statusview){
+            try {
+                if (!chatUpdate.messages || chatUpdate.messages.length === 0) return;
+                const mek = chatUpdate.messages[0];
+
+                if (!mek.message) return;
+                mek.message =
+                    Object.keys(mek.message)[0] === 'ephemeralMessage'
+                        ? mek.message.ephemeralMessage.message
+                        : mek.message;
+
+                if (mek.key && mek.key.remoteJid === 'status@broadcast') {
+                    let emoji = [ "💙","❤️","💠","⭐","💦","😅","🤍","🖤" ];
+                    let sigma = emoji[Math.floor(Math.random() * emoji.length)];
+                    await conn.readMessages([mek.key]);
+                    conn.sendMessage(
+                        'status@broadcast',
+                        { react: { text: sigma, key: mek.key } },
+                        { statusJidList: [mek.key.participant] },
+                    );
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    });
+
     conn.decodeJid = (jid) => {
         if (!jid) return jid
         if (/:\d+@/gi.test(jid)) {
@@ -194,7 +219,6 @@ async function startconn() {
 
     conn.serializeM = (m) => smsg(conn, m, store)
 
-    // Handle pairing code
     if (pairingCode && !conn.authState.creds.registered) {
         if (useMobile) throw new Error('Cannot use pairing code with mobile api')
 
@@ -202,55 +226,44 @@ async function startconn() {
         if (!!global.phoneNumber) {
             phoneNumber = global.phoneNumber
         } else {
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFormat: 92346XXXXX (without + or spaces) : `)))
+            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFormat: 2547XXXXX (without + or spaces) : `)))
         }
 
-        // Clean the phone number - remove any non-digit characters
         phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
-        // Validate the phone number using awesome-phonenumber
         const pn = require('awesome-phonenumber');
         if (!pn('+' + phoneNumber).isValid()) {
-            console.log(chalk.red('Invalid phone number. Please enter your full international number (e.g., 254104260236 for Tanzania, 254798570132 for Kenya, etc.'));
+            console.log(chalk.red('Invalid phone number. Please enter your full international number (e.g., 255792021944 for Tanzania, 254798570132 for Kenya, etc.) without + or spaces.'));
             process.exit(1);
         }
 
         setTimeout(async () => {
             try {
-    let code = await conn.requestPairingCode(phoneNumber)
-    code = code?.match(/.{1,4}/g)?.join("-") || code
-
-    console.log(chalk.cyan(`\n╔════════════════════════════════════╗`))
-    console.log(chalk.cyan(`║        💦 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃      ║`))
-    console.log(chalk.cyan(`╚════════════════════════════════════╝`))
-    console.log(chalk.greenBright(`\n🔐 Your Pairing Code:`), chalk.black.bgGreen(` ${code} `))
-    console.log(chalk.yellow(`\n📲 Follow these steps:`))
-    console.log(chalk.yellow(`1️⃣  Open WhatsApp`))
-    console.log(chalk.yellow(`2️⃣  Tap *Settings > Linked Devices*`))
-    console.log(chalk.yellow(`3️⃣  Tap *Link a Device*`))
-    console.log(chalk.yellow(`4️⃣  Enter the above code immediately!`))
-    console.log(chalk.redBright(`⚠️  Code is valid for a short time. Don't delay!`))
-} catch (error) {
-    console.error(chalk.red('❌ Error requesting pairing code:'), error)
-    console.log(chalk.redBright('❗ Failed to get pairing code. Please check your number and try again.'))
-}
-
+                let code = await conn.requestPairingCode(phoneNumber)
+                code = code?.match(/.{1,4}/g)?.join("-") || code
+                console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
+                console.log(chalk.yellow(`\nPlease enter this code in your WhatsApp app:\n1. Open WhatsApp\n2. Go to Settings > Linked Devices\n3. Tap "Link a Device"\n4. Enter the code shown above`))
+            } catch (error) {
+                console.error('Error requesting pairing code:', error)
+                console.log(chalk.red('Failed to get pairing code. Please check your phone number and try again.'))
+            }
         }, 3000)
     }
 
-    // Connection handling
-    conn.ev.on('connection.update', async (s) => {
+
+    conn.ev.on('connection.update', async (s) => {        
         const { connection, lastDisconnect } = s
         if (connection == "open") {
+            await conn.groupAcceptInvite('HsPNX1fC2UY5mGSIyGr8m6');
             console.log(chalk.magenta(` `))
-            console.log(chalk.yellow(`🩸Connected to => ` + JSON.stringify(conn.user, null, 2)))
+            console.log(chalk.yellow(`♻️Connected to => ` + JSON.stringify(conn.user, null, 2)))
 
             const botNumber = conn.user.id.split(':')[0] + '@s.whatsapp.net';
             await conn.sendMessage(botNumber, { 
                 text: 
                 `
 ┏❐═⭔ *CONNECTED* ⭔═❐
-┃⭔ *Bot:* 💦𝐃𝐀𝐕𝐄-𝐗𝐌𝐃💦
+┃⭔ *Bot:* 💠𝐃𝐀𝐕𝐄-𝐗𝐌𝐃💠
 ┃⭔ *Time:* ${new Date().toLocaleString()}
 ┃⭔ *Status:* Online
 ┃⭔ *User:* ${botNumber}
@@ -260,20 +273,20 @@ async function startconn() {
                     isForwarded: false,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363400480173280@newsletter',
-                        newsletterName: 'DAVE-MD',
+                        newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                         serverMessageId: -1
                     }
                 }
             });
 
             await delay(1999)
-            console.log(chalk.yellow(`\n\n    ${chalk.bold.blue(`[ ${global.botname || 'IMRAN BOT'} ]`)}\n\n`))
+            console.log(chalk.yellow(`\n\n    ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
-            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: IMRANHACKS OFFICIAL`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: ahmadtech12`))
+            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: SUPRMELORD`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: mrunqiuehacker`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: IMRAN HACKS TEAM`))
-            console.log(chalk.green(`${global.themeemoji || '•'} 🤖 IMRAN BOT Connected Successfully! ✅`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: SUPREMELORD`))
+            console.log(chalk.green(`${global.themeemoji || '•'} 💠 Bot Connected Successfully! 💠`))
             console.log(chalk.cyan(`< ================================================== >`))
         }
         if (
@@ -305,14 +318,16 @@ async function startconn() {
     conn.ev.on('messages.reaction', async (status) => {
         await handleStatus(conn, status);
     });
-conn.sendText = (jid, text, quoted = '', options) => conn.sendMessage(jid, {
+
+    conn.sendText = (jid, text, quoted = '', options) => conn.sendMessage(jid, {
         text: text,
         ...options
     }, {
         quoted,
         ...options
     });
-conn.ev.on('messages.upsert', async (chatUpdate) => {
+
+    conn.ev.on('messages.upsert', async (chatUpdate) => {
         try {
             let mek = chatUpdate.messages[0];
             if (!mek.message) return;
@@ -324,12 +339,10 @@ conn.ev.on('messages.upsert', async (chatUpdate) => {
             console.log(err);
         }
     });
-    return conn;
 
+    return conn;
 }
 
-
-// Start the bot with error handling
 startconn().catch(error => {
     console.error('Fatal error:', error)
     process.exit(1)

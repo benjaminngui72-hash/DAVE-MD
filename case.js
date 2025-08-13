@@ -1,7 +1,9 @@
+
 require('./setting/settings');
 const fs = require('fs');
 const ffmpeg = require("fluent-ffmpeg");
 const axios = require('axios');
+const didyoumean = require('didyoumean');
 const path = require('path');
 const chalk = require("chalk");
 const util = require("util");
@@ -13,7 +15,7 @@ const { spawn, exec, execSync } = require('child_process');
 const { downloadContentFromMessage, proto, generateWAMessage, getContentType, prepareWAMessageMedia, generateWAMessageFromContent, GroupSettingChange, jidDecode, WAGroupMetadata, emitGroupParticipantsUpdate, emitGroupUpdate, generateMessageID, jidNormalizedUser, generateForwardMessageContent, WAGroupInviteMessageGroupMetadata, GroupMetadata, Headers, delay, WA_DEFAULT_EPHEMERAL, WADefault, getAggregateVotesInPollMessage, generateWAMessageContent, areJidsSameUser, useMultiFileAuthState, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeWaconnet, makeInMemoryStore, MediaType, WAMessageStatus, downloadAndSaveMediaMessage, AuthenticationState, initInMemoryKeyStore, MiscMessageGenerationOptions, useSingleFileAuthState, BufferJSON, WAMessageProto, MessageOptions, WAFlag, WANode, WAMetric, ChatModification, MessageTypeProto, WALocationMessage, ReconnectMode, WAContextInfo, ProxyAgent, waChatKey, MimetypeMap, MediaPathMap, WAContactMessage, WAContactsArrayMessage, WATextMessage, WAMessageContent, WAMessage, BaileysError, WA_MESSAGE_STATUS_TYPE, MediaConnInfo, URL_REGEX, WAUrlInfo, WAMediaUpload, mentionedJid, processTime, Browser, MessageType,
 Presence, WA_MESSAGE_STUB_TYPES, Mimetype, relayWAMessage, Browsers, DisconnectReason, WAconnet, getStream, WAProto, isBaileys, AnyMessageContent, templateMessage, InteractiveMessage, Header } = require("@whiskeysockets/baileys");
 
-module.exports = supreme = async (supreme, m, chatUpdate, store) => {
+module.exports = dave = async (dave, m, chatUpdate, store) => {
 try {
 // Message type handlers
 const body = (
@@ -30,12 +32,12 @@ m.mtype === "messageContextInfo" ? m.message.buttonsResponseMessage?.selectedBut
 );
 
 const sender = m.key.fromMe
-? supreme.user.id.split(":")[0] || supreme.user.id
+? supreme.user.id.split(":")[0] || dave.user.id
 : m.key.participant || m.key.remoteJid;
 
 const senderNumber = sender.split('@')[0];
 const budy = (typeof m.text === 'string' ? m.text : '');
-const prefa = ["", "!", ".", ",", "🐤", "🗿"];
+const prefa = ["", "!", ".", ",", "🌚", "💠"];
 const prefix = /^[°zZ#$@+,.?=''():√%!¢£¥€π¤ΠΦ&><™©®Δ^βα¦|/\\©^]/.test(body) ? body.match(/^[°zZ#$@+,.?=''():√%¢£¥€π¤ΠΦ&><!™©®Δ^βα¦|/\\©^]/gi) : '/';
 
 // Buat Grup
@@ -90,17 +92,17 @@ console.log('\x1b[30m--------------------\x1b[0m');
 console.log(chalk.bgHex("#e74c3c").bold(`➤ New Messages`));
 console.log(
 chalk.bgHex("#00FF00").black(
-` ╭─ > Time: ${new Date().toLocaleString()} \n` +
-` ├─ > Message: ${m.body || m.mtype} \n` +
-` ├─ > Body: ${m.pushname} \n` +
-` ╰─ > JID: ${senderNumber}`
+` ⭔  Time: ${new Date().toLocaleString()} \n` +
+` ⭔  Message: ${m.body || m.mtype} \n` +
+` ⭔  Body: ${m.pushname} \n` +
+` ⭔  JID: ${senderNumber}`
 )
 );
 if (m.isGroup) {
 console.log(
 chalk.bgHex("#00FF00").black(
-` ╭─ > Grup: ${groupName} \n` +
-` ╰─ > GroupJid: ${m.chat}`
+` ▢  Grup: ${groupName} \n` +
+` ▢  GroupJid: ${m.chat}`
 )
 );
 }
@@ -138,7 +140,7 @@ remoteJid: `status@broadcast`
 message: {
 'contactMessage': {
 'displayName': `${global.namaown}`,
-'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;ttname,;;;\nFN:ttname\nitem1.TEL;waid=254104260236:+254111687009\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
+'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;ttname,;;;\nFN:ttname\nitem1.TEL;waid=254756182478:+254756182478\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
 sendEphemeral: true
 }}
 }
@@ -171,7 +173,7 @@ if (global.autorecordtype) {
 }
 
 if (autobio) {
-  supreme.updateProfileStatus(` 💦𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 is Online | Running for: ${runtime(process.uptime())}`)
+  supreme.updateProfileStatus(` 𝐃𝐀𝐕𝐄-𝐌𝐃 is Active💠 Runtime ${runtime(process.uptime())}`)
     .catch(err => console.error("Error updating status:", err));
 }
 
@@ -181,7 +183,7 @@ if (m.sender.startsWith("92") && global.anti92 === true) {
 
 if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.owner + "@s.whatsapp.net")) {
   if (!m.quoted) {
-    reply("💤 The king is away hold a bit beb.");
+    reply("Owner is currently offline, please wait for a response");
     setTimeout(() => {
       supreme.sendMessage(m.key.remoteJid, { delete: m.key });
     }, 2000);
@@ -190,7 +192,7 @@ if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.ow
 
 if (global.owneroff) {
   if (!isGroup && !isOwner) {
-    let text = `🗿Owner is away beb. dont spam, or I’ll have to take action 🥹`
+    let text = `Sorry, our *Owner* is currently offline. Please wait until they are online and avoid spamming messages 😇`
     return supreme.sendMessage(m.chat, {
       text: `${text}`,
       contextInfo: {
@@ -212,17 +214,17 @@ if (global.owneroff) {
 }
 switch (command) {        
 case "public": { 
-if (!isBot) return reply(`To make 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 public, type .mode public in your inbox.`)
+if (!isBot) return reply(`Feature for owner only`)
 supreme.public = true
-reply(`💦Bot mode successfully changed to public! 🌎`)
+reply(`Successfully👌 Changed Bot Mode To Public`)
 }
 break;
 //////////////////self//////////////////
 case "self":
 case "private": { 
-if (!isBot) return reply(`To make me public, type .mode private in your inbox`)
+if (!isBot) return reply(`Feature for owner only`)
 supreme.public = false
-reply(`💦Successfully changed bot mode to Self/Private! 🔒`)
+reply(`Successfully💠 Changed Bot Mode To Self/Private`)
 }
 break;
 
@@ -236,13 +238,13 @@ break;
 
                     autoTyping = true
 
-                    reply(`autotyping successfully changed to${q}`)
+                    reply(`Successfully 💠changed auto-typing to ${q}`)
 
                 } else if (q === 'off') {
 
                     autoTyping = false
 
-                    reply(`auto-typing successfully changed to ${q}`)
+                    reply(`Successfully 💠changed auto-typing to ${q}`)
 
                 }
 
@@ -255,7 +257,7 @@ break;
                 if (q === 'on') {
                     autoRecording = true
 
-                    reply(`Successfully 💦changed auto-recording to ${q}`)
+                    reply(`Successfully 💠changed auto-recording to ${q}`)
 
                 } else if (q === 'off') {
 
@@ -273,16 +275,16 @@ break;
   if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
   if (q === 'on') {
     autoread = true
-    reply(`Successfully💦 changed auto-read to ${q}`)
+    reply(`Successfully💠 changed auto-read to ${q}`)
   } else if (q === 'off') {
     autoread = false
-    reply(`Successfully💦 changed auto-read to ${q}`)
+    reply(`Successfully💠 changed auto-read to ${q}`)
   }
   break;
 ///////////////////GITCLONE//////////////  
     case 'gitclone': {
 
-                      if (!text) return m.reply(`Where is the link?`)
+                      if (!text) return m.reply(`🖇️ Provide a github repo link.\n *Example:.gitclone https://github.com/giftdee/DAVE-MD`)
 
 if (!text.includes('github.com')) return reply(`Is that a GitHub repo link ?!`)
 
@@ -303,7 +305,7 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
                       break;      
 //////////////runtime///////////////////////
     case 'runtime': {
-      m.reply(`🔸 *${runtime(process.uptime())}*`)
+      m.reply(`💠 *${runtime(process.uptime())}*`)
     }
 
     break;
@@ -313,10 +315,10 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
   if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
   if (q === 'on') {
     autobio = true
-    reply(`Auto-bio Successfully🗿 changed to ${q}`)
+    reply(`Auto-bio Successfully💠 changed to ${q}`)
   } else if (q === 'off') {
     autobio = false
-    reply(`Auto-bio Successfully🗿 changed to ${q} `)
+    reply(`Auto-bio Successfully💠 changed to ${q} `)
   }
   break   
 
@@ -329,23 +331,6 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
                 break;
         ////////////////////////////////////////
 
-            /*
-            GETPP
-            */
-
-            case 'getpp': { 
-              try { 
-                ha = m.quoted.sender; 
-                qd = await supreme.getName(ha); 
-                pp2 = await supreme.profilePictureUrl(ha,'image'); 
-              } catch {  
-                pp2 = 'https://storage.giftedtech.web.id/file/CAf2y.jpg'; 
-              } 
-              if (!m.quoted) throw `Tag a user!`; 
-              bar = `Profile Picture of ${qd}`; 
-              client.sendMessage(m.chat, { image: { url: pp2}, caption: bar, fileLength: "999999999999"}, { quoted: m}); 
-            } 
-            break;
 
 case 'play':{
 const axios = require('axios');
@@ -354,7 +339,7 @@ const fs = require("fs");
 const path = require("path");
 
   try {
-    if (!text) return m.reply("🎵 Which song do you want to download ill grabb it for you!");
+    if (!text) return m.reply("What song do you want to download?");
 
     let search = await yts(text);
     let link = search.all[0].url;
@@ -383,7 +368,7 @@ const path = require("path");
           });
 
           if (response.status !== 200) {
-            m.reply("⛽ Failled to retrieve the media from ...inshort Api failed.");
+            m.reply("sorry but the API endpoint didn't respond correctly. Try again later.");
             continue;
           }
                 ffmpeg(response.data)
@@ -395,7 +380,7 @@ const path = require("path");
                 {
                   document: { url: outputPath },
                   mimetype: "audio/mp3",
-                  caption: "✦𝐃𝐀𝐕𝐄-𝐗𝐌𝐃✦",
+                  caption: " *𝐃𝐀𝐕𝐄-𝐌𝐃* ",
                   fileName: outputFileName,
                 },
                 { quoted: m }
@@ -403,7 +388,7 @@ const path = require("path");
               fs.unlinkSync(outputPath);
             })
             .on("error", (err) => {
-              m.reply("💦 There was an error during connection! 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 will reattempt soon...\n" + err.message);
+              m.reply("Download failed\n" + err.message);
             });
 
           return;
@@ -415,9 +400,9 @@ const path = require("path");
    }
 
     // If no APIs succeeded
-    m.reply("💦 DAVE-XMD: Failed to retrieve media from all the apis.");
+    m.reply("An error occurred. All APIs might be down or unable to process the request.");
   } catch (error) {
-    m.reply("🥲 DAVE-XMD: Download crashed .\n" + error.message);
+    m.reply("Download failed\n" + error.message);
   }
 }
           break;

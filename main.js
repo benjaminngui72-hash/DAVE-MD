@@ -733,9 +733,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.song') || userMessage.startsWith('.music'):
                 await playCommand(sock, chatId, message);
                 break;
-            case 
-//userMessage.startsWith('.play') || 
-
+            case
 userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessage.startsWith('.yts'):
                 await songCommand(sock, chatId, message);
                 break;

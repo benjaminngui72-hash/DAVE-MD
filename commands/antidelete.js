@@ -69,7 +69,7 @@ async function handleAntideleteCommand(sock, chatId, message, match) {
 
     if (!match) {
         return sock.sendMessage(chatId, {
-            text: `*ANTIDELETE SETUP*\n\nCurrent: ${config.enabled ? '✅ ON' : '❌ OFF'}\nMode: ${config.mode || 'private'}\n\n*.antidelete all* – Send to chat\n*.antidelete private* – Send to inbox\n*.antidelete off* – Disable`
+            text: `*ANTIDELETE SETUP*\n\nCurrent: ${config.enabled ? '💠 ON' : '💨 OFF'}\nMode: ${config.mode || 'private'}\n\n*.antidelete all* – Send to chat\n*.antidelete private* – Send to inbox\n*.antidelete off* – Disable`
         });
     }
 
@@ -79,13 +79,13 @@ async function handleAntideleteCommand(sock, chatId, message, match) {
         config.enabled = true;
         config.mode = match;
     } else {
-        return sock.sendMessage(chatId, { text: '*❌ Invalid command.*' });
+        return sock.sendMessage(chatId, { text: '*🙂 Invalid command.*' });
     }
 
     saveAntideleteConfig(config);
 
     await sock.sendMessage(chatId, {
-        text: `✅ *Antidelete ${match === 'off' ? 'disabled' : 'enabled in ' + match + ' mode'}!*`
+        text: `💠 *Antidelete ${match === 'off' ? 'disabled' : 'enabled in ' + match + ' mode'}!*`
     });
 }
 
@@ -165,10 +165,10 @@ async function handleMessageRevocation(sock, revocationMessage) {
 
         const destination = config.mode === 'private' ? ownerNumber : (original.group || sender);
 
-        let text = `*🔰 ANTIDELETE ALERT 🔰*\n\n` +
+        let text = `*💠 ANTIDELETE ALERT 💠*\n\n` +
             `*🗑️ Deleted By:* @${deletedBy.split('@')[0]}\n` +
-            `*👤 Sender:* @${senderName}\n` +
-            `*🕒 Time:* ${time}\n`;
+            `*💠 Sender:* @${senderName}\n` +
+            `*💠 Time:* ${time}\n`;
 
         if (groupName) text += `*👥 Group:* ${groupName}\n`;
         if (original.content) text += `\n*💬 Message:*\n${original.content}`;

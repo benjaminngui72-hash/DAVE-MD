@@ -84,7 +84,7 @@ const clearTmpCommand = require('./commands/cleartmp');
 const setProfilePicture = require('./commands/setpp');
 const instagramCommand = require('./commands/instagram');
 const facebookCommand = require('./commands/facebook');
-const playCommand = require('./commands/play');
+//const playCommand = require('./commands/play');
 const tiktokCommand = require('./commands/tiktok');
 const songCommand = require('./commands/song');
 const aiCommand = require('./commands/ai');
@@ -733,7 +733,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.song') || userMessage.startsWith('.music'):
                 await playCommand(sock, chatId, message);
                 break;
-            case userMessage.startsWith('.play') || userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessage.startsWith('.yts'):
+            case 
+//userMessage.startsWith('.play') || 
+
+userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessage.startsWith('.yts'):
                 await songCommand(sock, chatId, message);
                 break;
             case userMessage.startsWith('.video') || userMessage.startsWith('.ytmp4'):

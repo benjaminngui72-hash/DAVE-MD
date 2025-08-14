@@ -11,7 +11,7 @@ function runtime(seconds) {
 
 async function aliveCommand(sock, chatId, message) {
     try {
-        const message1 = `🔸 *${runtime(process.uptime())}*`;
+        const message1 = `💠 *${runtime(process.uptime())}*`;
 
         await sock.sendMessage(chatId, {
             text: message1,

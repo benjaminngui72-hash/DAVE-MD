@@ -39,210 +39,197 @@ async function helpCommand(conn, m, quoted, commands = []) {
   const uptime = formatUptime(Date.now() - startTime);
   const menuCaption = `
 ╭━━━〔𝐃𝐀𝐕𝐄-𝐌𝐃〕━━⬣
-┃ 🔥 𝘾𝙧𝙚𝙖𝙩𝙤𝙧 : \`『𝙂𝙄𝙁𝙏𝙀𝘿 𝘿𝘼𝙑𝙀』\`
-┃ 🧨 𝙊𝙬𝙣𝙚𝙧   : ${settings.botOwner || '𝘿𝘼𝙑𝙀'}
-┃ 💣 𝙑𝙚𝙧𝙨𝙞𝙤𝙣 : ${settings.version || '2.0.0'}
-┃ ⏱️ 𝙍𝙪𝙣𝙩𝙞𝙢𝙚 : ${runtime(process.uptime())}
-┃ 🧩 𝙋𝙡𝙪𝙜𝙞𝙣𝙨 : \`420\`
-┃ 💊 𝙍𝘼𝙈     : ${ram()}t
+┃ 💠 Creator : 『𝙂𝙄𝙁𝙏𝙀𝘿 𝘿𝘼𝙑𝙀』
+┃ 💠 Owner   : ${settings.botOwner || '𝘿𝘼𝙑𝙀'}
+┃ 💠 Version : ${settings.version || '2.0.0'}
+┃ 💠 Runtime : ${runtime(process.uptime())}
+┃ 💠 Plugins : 420
+┃ 💠 RAM     : ${ram()}t
 ╰━━━━━━━━━━━━━━━━━━⬣
-┏━━「 \`Mode\` 」
-│ ─≽ *private*
-│ ─≽ *public*
-│ ─≽ *recording*
-│ ─≽ *typing*
-│ ─≽ *autoreact*
+
+┏━━「 Main 」━━
+│ • menu
+│ • ping
+│ • ping2
+│ • uptime
+│ • botinfo
+│ • listplugin
+│ • update
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`General\` 」
-│ ─≽ *ping*
-│ ─≽ *repo*
-│ ─≽ *bot*
-│ ─≽ *autostatusview*
-│ ─≽ *uptime*
-│ ─≽ *delete*
-│ ─≽ *listplugin*
-│──────♢
+┏━━「 Control 」━━
+│ • public
+│ • private
+│ • addaccess
+│ • delaccess
+│ • autoreact
+│ • block
+│ • autotyping
+│ • autorecord
+│ • autobio
+│ • setprefix
+│ • autostatusview
+│ • help
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Download\` 」
-│ ─≽ *song*
-│ ─≽ *play*
-│ ─≽ *play2*
-│ ─≽ *tiktok*
-│ ─≽ *vv*
-│ ─≽ *vv2*
-│ ─≽ *anime*
-│ ─≽ *detiknews*
-│ ─≽ *apk*
-│ ─≽ *apk2*
-│ ─≽ *fb*
-│ ─≽ *igdl2*
-│ ─≽ *igdl*
-│ ─≽ *lyrics*
-│ ─≽ *spotifydown*
-│ ─≽ *spotifysearch*
-│ ─≽ *igstalk*
-│ ─≽ *tiktokstalk*
-│ ─≽ *ytmp4*
-│ ─≽ *ytmp3*
-│ ─≽ *mediafire*
-│ ─≽ *playtiktok*
-│ ─≽ *play3*
-│ ─≽ *song2*
-│──────♢
+┏━━「 Media 」━━
+│ • playdoc
+│ • ytmp4
+│ • ytvid
+│ • yts
+│ • pinterestdl
+│ • twitterdl
+│ • tiktok
+│ • igdl
+│ • spotify
+│ • ytmp3
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Group\` 」
-│ ─≽ *remove*
-│ ─≽ *tagall*
-│ ─≽ *hidetag*
-│ ─≽ *promote*
-│ ─≽ *demote*
-│ ─≽ *kickall*
-│ ─≽ *kill*
-│ ─≽ *invite*
-│ ─≽ *add*
-│ ─≽ *open*
-│ ─≽ *close*
-│ ─≽ *antilinkgc*
-│ ─≽ *antilink*
-│ ─≽ *getidgc*
-│ ─≽ *ceklinkgc*
-│ ─≽ *gcinfo*
-│ ─≽ *poll*
-│ ─≽ *setppgc*
-│ ─≽ *listonline*
-│ ─≽ *resetlink*
-│ ─≽ *pin*
-│ ─≽ *setnamegc*
-│ ─≽ *request-join*
-│ ─≽ *approve*
-│ ─≽ *reject*
-│ ─≽ *left*
-│──────♢
+┏━━「 Download 」━━
+│ • play
+│ • vv
+│ • anime
+│ • detiknews
+│ • apk
+│ • facebook 
+│ • Instagram 
+│ • lyrics
+│ • spotifydown
+│ • spotifysearch
+│ • igstalk
+│ • tiktokstalk
+│ • mediafire
+│ • tiktok
+│ • song
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Sticker\` 」
-│ ─≽ *s*
-│ ─≽ *take*
-│ ─≽ *brat*
-│ ─≽ *emojimix*
-│ ─≽ *notes*
-│──────♢
+┏━━「 Group 」━━
+│ • remove
+│ • tagall
+│ • hidetag
+│ • promote
+│ • demote
+│ • kickall
+│ • kill
+│ • invite
+│ • add
+│ • open
+│ • close
+│ • antilinkgc
+│ • antilink
+│ • getidgc
+│ • ceklinkgc
+│ • gcinfo
+│ • poll
+│ • setppgc
+│ • listonline
+│ • resetlink
+│ • pin
+│ • setnamegc
+│ • request-join
+│ • approve
+│ • reject
+│ • left
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Owner\` 」
-│ ─≽ *getbio*
-│ ─≽ *getpp*
-│ ─≽ *block*
-│ ─≽ *unblock*
-│ ─≽ *storytext*
-│ ─≽ *storyaudio*
-│ ─≽ *storyimage*
-│ ─≽ *storyvideo*
-│ ─≽ *Creategc*
-│ ─≽ *listgc*
-│ ─≽ *setpp*
-│ ─≽ *onlypc*
-│ ─≽ *onlygc*
-│ ─≽ *reactch*
-│ ─≽ *createch*
-│ ─≽ *clear*
-│──────♢
+┏━━「 Sticker 」━━
+│ • s
+│ • take
+│ • brat
+│ • emojimix
+│ • notes
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Maths\` 」
-│ ─≽ *kalkulator*
-│──────♢
+┏━━「 Owner 」━━
+│ • getbio
+│ • getpp
+│ • unblock
+│ • storytext
+│ • storyaudio
+│ • storyimage
+│ • storyvideo
+│ • creategc
+│ • listgc
+│ • setpp
+│ • onlypc
+│ • onlygc
+│ • reactch
+│ • createch
+│ • clear
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Search\` 」
-│ ─≽ *ai*
-│ ─≽ *ai2*
-│ ─≽ *country*
-│ ─≽ *quiz*
-│ ─≽ *gpt*
-│ ─≽ *gpt2*
-│ ─≽ *gpt3*
-│ ─≽ *gemma*
-│ ─≽ *yts*
-│ ─≽ *pinterest*
-│ ─≽ *igstory*
-│ ─≽ *ytstalk*
-│ ─≽ *ffstalk*
-│ ─≽ *telestalk*
-│ ─≽ *meme*
-│ ─≽ *channelinfo*
-│ ─≽ *cekkodam*
-│ ─≽ *define*
-│ ─≽ *sfile*
-│ ─≽ *myip*
-│ ─≽ *trackip*
-│ ─≽ *xvideos*
-│ ─≽ *yiffersearch*
-│──────♢
+┏━━「 Maths 」━━
+│ • kalkulator
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Converter\` 」
-│ ─≽ *photo*
-│ ─≽ *tovideo*
-│ ─≽ *toaudio*
-│ ─≽ *tovn*
-│ ─≽ *translate*
-│ ─≽ *flux*
-│ ─≽ *deepimage*
-│ ─≽ *tourl*
-│ ─≽ *logo*
-│ ─≽ *tts*
-│ ─≽ *ghiblistyle*
-│──────♢
+┏━━「 Search 」━━
+│ • ai
+│ • country
+│ • quiz
+│ • gpt
+│ • gemma
+│ • pinterest
+│ • igstory
+│ • ytstalk
+│ • ffstalk
+│ • telestalk
+│ • meme
+│ • channelinfo
+│ • cekkodam
+│ • define
+│ • idch
+│ • myip
+│ • trackip
+│ • xvideos
+│ • yiffersearch
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Religion\` 」
-│ ─≽ *Quran*
-│ ─≽ *Bible*
-│──────♢
+┏━━「 Converter 」━━
+│ • photo
+│ • tovideo
+│ • toaudio
+│ • tovn
+│ • translate
+│ • flux
+│ • deepimage
+│ • tourl
+│ • logo
+│ • tts
+│ • ghiblistyle
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Developer\` 」
-│ ─≽ *githubstalk*
-│ ─≽ *gitclone*
-│ ─≽ *getfile*
-│ ─≽ *scweb*
-│──────♢
+┏━━「 Religion 」━━
+│ • quran
+│ • bible
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Heroku\` 」
-│ ─≽ *getvars*
-│ ─≽ *setvar*
-│ ─≽ *update*
-│──────♢
+┏━━「 Developer 」━━
+│ • githubstalk
+│ • gitclone
+│ • getfile
+│ • scweb
+┗━━━━━━━━━━━━━━━♢
+┏━━「 Others 」━━
+│ • cc
+│ • ckalender
+│ • epl
+│ • laliga
+│ • bundesliga
+│ • serie-a
+│ • ligue-1
+│ • fixtures
+│ • news
+│ • vcf
+│ • save
+│ • say
 ┗━━━━━━━━━━━━━━━♢
 
-┏━━「 \`Others\` 」
-│ ─≽ *cc*
-│ ─≽ *ckalender*
-│ ─≽ *epl*
-│ ─≽ *laliga*
-│ ─≽ *bundesliga*
-│ ─≽ *serie-a*
-│ ─≽ *ligue-1*
-│ ─≽ *fixtures*
-│ ─≽ *news*
-│ ─≽ *vcf*
-│ ─≽ *save*
-│ ─≽ *say*
-│──────♢
+┏━━「 Email 」━━
+│ • sendemail
+│ • tempmail
 ┗━━━━━━━━━━━━━━━♢
 
-━━「 \`Email\` 」
-│ ─≽ *sendemail*
-│ ─≽ *tempmail*
-│──────♢
-┗━━⬣ ⌜ \`New version\`⌟
-
-> 🔚 𝐌𝐮𝐜𝐡 𝐋𝐨𝐯𝐞, 𝘿𝘼𝙑𝙀-𝙏𝙀𝘾𝙃
+> 🔚 Much Love, 𝘿𝘼𝙑𝙀-𝙏𝙀𝘾𝙃
 `;
 
   try {

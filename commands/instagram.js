@@ -70,7 +70,7 @@ async function instagramCommand(sock, chatId, message) {
                 await sock.sendMessage(chatId, {
                     video: { url: mediaUrl },
                     mimetype: "video/mp4",
-                    caption: "Downloaded successfully by 𝐃𝐀𝐕𝐄-𝐌𝐃 ✔️"
+                    caption: "Download successfully💠 credits to 𝐃𝐀𝐕𝐄-𝐌𝐃🌟"
                 }, { quoted: message });
             } else {
                 await sock.sendMessage(chatId, {

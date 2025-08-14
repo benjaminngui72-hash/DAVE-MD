@@ -1,4 +1,5 @@
-
+//JavaScript confuser//
+//GIFTEDDAVE//
 require('./settings')
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')
@@ -73,7 +74,7 @@ const store = {
 let phoneNumber = "254104260236"
 let owner = JSON.parse(fs.readFileSync('./data/owner.json'))
 
-global.botname = "𝐃𝐀𝐕𝐄-𝐌𝐃"
+global.botname = "𝐃𝐀𝐕𝐄-𝐗𝐌𝐃"
 global.themeemoji = "•"
 global.statusview = true
 
@@ -136,13 +137,13 @@ async function startconn() {
                 console.error("Error in handleMessages:", err)
                 if (mek.key && mek.key.remoteJid) {
                     await conn.sendMessage(mek.key.remoteJid, { 
-                        text: '❌ An error occurred while processing your message.',
+                        text: '💠i hit a snag while processing your message.',
                         contextInfo: {
                             forwardingScore: 1,
                             isForwarded: false,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363400480173280@newsletter',
-                                newsletterName: '𝐉ᴜɴᴇ 𝐌ᴅ',
+                                newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
                                 serverMessageId: -1
                             }
                         }
@@ -167,7 +168,7 @@ async function startconn() {
                         : mek.message;
 
                 if (mek.key && mek.key.remoteJid === 'status@broadcast') {
-                    let emoji = [ "💙","❤️","💠","⭐","💦","😅","🤍","🖤" ];
+                    let emoji = [ "💠","❤️","💓","⭐","👍","⚠️","🤍","🖤" ];
                     let sigma = emoji[Math.floor(Math.random() * emoji.length)];
                     await conn.readMessages([mek.key]);
                     conn.sendMessage(
@@ -256,37 +257,37 @@ async function startconn() {
         if (connection == "open") {
             await conn.groupAcceptInvite('HsPNX1fC2UY5mGSIyGr8m6');
             console.log(chalk.magenta(` `))
-            console.log(chalk.yellow(`♻️Connected to => ` + JSON.stringify(conn.user, null, 2)))
+            console.log(chalk.yellow(`💠Connected to => ` + JSON.stringify(conn.user, null, 2)))
 
             const botNumber = conn.user.id.split(':')[0] + '@s.whatsapp.net';
             await conn.sendMessage(botNumber, { 
                 text: 
                 `
-┏❐═⭔ *CONNECTED* ⭔═❐
-┃⭔ *Bot:* 💠𝐃𝐀𝐕𝐄-𝐗𝐌𝐃💠
-┃⭔ *Time:* ${new Date().toLocaleString()}
-┃⭔ *Status:* Online
-┃⭔ *User:* ${botNumber}
-┗❐═⭔════════⭔═❐`,
+╔══❐ *𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 CONNECTED* ❐══╗
+║ ➤ *Bot:* 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃
+║ ➤ *Time:* ${new Date().toLocaleString()}
+║ ➤ *Status:* Online ✅
+║ ➤ *User:* ${botNumber}
+╚════════════════════════════╝`,
                 contextInfo: {
                     forwardingScore: 1,
                     isForwarded: false,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363400480173280@newsletter',
-                        newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
+                        newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
                         serverMessageId: -1
                     }
                 }
             });
 
             await delay(1999)
-            console.log(chalk.yellow(`\n\n    ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
+            console.log(chalk.yellow(`\n\n    ${chalk.bold.blue(`[ ${global.botname || 'DAVE-XMD'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
-            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: SUPRMELORD`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: mrunqiuehacker`))
+            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: DAVKE`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: giftdee`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: SUPREMELORD`))
-            console.log(chalk.green(`${global.themeemoji || '•'} 💠 Bot Connected Successfully! 💠`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: GIFTDEE`))
+            console.log(chalk.green(`${global.themeemoji || '•'} 💠𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 Connected Successfully!`))
             console.log(chalk.cyan(`< ================================================== >`))
         }
         if (

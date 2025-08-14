@@ -1,18 +1,4 @@
-///DON'T COPY WITHOUT PERMISSION//
-/**
- * 𝐃𝐀𝐕𝐄-𝐌𝐃 - WhatsApp Bot
- * 
- * Copyright (c) 2025 giftdee 
- * Licensed under the MIT License
- * 
- * ⚠️ DO NOT REMOVE THIS HEADER ⚠️
- * 
- * - Modifying, rebranding, or redistributing without proper credit is strictly prohibited.
- * - Cloning this project without visible author attribution may result in takedown.
- * - Author: DAVE-MD | GitHub: https://github.com/giftdee/DAVE-MD
- * 
- * Any fork must retain visible credits in both code and output.
- */
+
 const settings = require('./settings');
 require('./config.js');
 const { isBanned } = require('./lib/isBanned');

@@ -1,4 +1,3 @@
-
 require('./setting/settings');
 const fs = require('fs');
 const ffmpeg = require("fluent-ffmpeg");
@@ -15,7 +14,7 @@ const { spawn, exec, execSync } = require('child_process');
 const { downloadContentFromMessage, proto, generateWAMessage, getContentType, prepareWAMessageMedia, generateWAMessageFromContent, GroupSettingChange, jidDecode, WAGroupMetadata, emitGroupParticipantsUpdate, emitGroupUpdate, generateMessageID, jidNormalizedUser, generateForwardMessageContent, WAGroupInviteMessageGroupMetadata, GroupMetadata, Headers, delay, WA_DEFAULT_EPHEMERAL, WADefault, getAggregateVotesInPollMessage, generateWAMessageContent, areJidsSameUser, useMultiFileAuthState, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeWaconnet, makeInMemoryStore, MediaType, WAMessageStatus, downloadAndSaveMediaMessage, AuthenticationState, initInMemoryKeyStore, MiscMessageGenerationOptions, useSingleFileAuthState, BufferJSON, WAMessageProto, MessageOptions, WAFlag, WANode, WAMetric, ChatModification, MessageTypeProto, WALocationMessage, ReconnectMode, WAContextInfo, ProxyAgent, waChatKey, MimetypeMap, MediaPathMap, WAContactMessage, WAContactsArrayMessage, WATextMessage, WAMessageContent, WAMessage, BaileysError, WA_MESSAGE_STATUS_TYPE, MediaConnInfo, URL_REGEX, WAUrlInfo, WAMediaUpload, mentionedJid, processTime, Browser, MessageType,
 Presence, WA_MESSAGE_STUB_TYPES, Mimetype, relayWAMessage, Browsers, DisconnectReason, WAconnet, getStream, WAProto, isBaileys, AnyMessageContent, templateMessage, InteractiveMessage, Header } = require("@whiskeysockets/baileys");
 
-module.exports = dave = async (dave, m, chatUpdate, store) => {
+module.exports = supreme = async (supreme, m, chatUpdate, store) => {
 try {
 // Message type handlers
 const body = (
@@ -32,12 +31,12 @@ m.mtype === "messageContextInfo" ? m.message.buttonsResponseMessage?.selectedBut
 );
 
 const sender = m.key.fromMe
-? supreme.user.id.split(":")[0] || dave.user.id
+? supreme.user.id.split(":")[0] || supreme.user.id
 : m.key.participant || m.key.remoteJid;
 
 const senderNumber = sender.split('@')[0];
 const budy = (typeof m.text === 'string' ? m.text : '');
-const prefa = ["", "!", ".", ",", "🌚", "💠"];
+const prefa = ["", "!", ".", ",", "🐤", "🗿"];
 const prefix = /^[°zZ#$@+,.?=''():√%!¢£¥€π¤ΠΦ&><™©®Δ^βα¦|/\\©^]/.test(body) ? body.match(/^[°zZ#$@+,.?=''():√%¢£¥€π¤ΠΦ&><!™©®Δ^βα¦|/\\©^]/gi) : '/';
 
 // Buat Grup
@@ -92,17 +91,17 @@ console.log('\x1b[30m--------------------\x1b[0m');
 console.log(chalk.bgHex("#e74c3c").bold(`➤ New Messages`));
 console.log(
 chalk.bgHex("#00FF00").black(
-` ⭔  Time: ${new Date().toLocaleString()} \n` +
-` ⭔  Message: ${m.body || m.mtype} \n` +
-` ⭔  Body: ${m.pushname} \n` +
-` ⭔  JID: ${senderNumber}`
+` ╭─ > Time: ${new Date().toLocaleString()} \n` +
+` ├─ > Message: ${m.body || m.mtype} \n` +
+` ├─ > Body: ${m.pushname} \n` +
+` ╰─ > JID: ${senderNumber}`
 )
 );
 if (m.isGroup) {
 console.log(
 chalk.bgHex("#00FF00").black(
-` ▢  Grup: ${groupName} \n` +
-` ▢  GroupJid: ${m.chat}`
+` ╭─ > Grup: ${groupName} \n` +
+` ╰─ > GroupJid: ${m.chat}`
 )
 );
 }
@@ -140,7 +139,7 @@ remoteJid: `status@broadcast`
 message: {
 'contactMessage': {
 'displayName': `${global.namaown}`,
-'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;ttname,;;;\nFN:ttname\nitem1.TEL;waid=254756182478:+254756182478\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
+'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;ttname,;;;\nFN:ttname\nitem1.TEL;waid=254104260236:+254104260236\nitem1.X-ABLabel:Ponsel\nEND:VCARD`,
 sendEphemeral: true
 }}
 }
@@ -173,7 +172,7 @@ if (global.autorecordtype) {
 }
 
 if (autobio) {
-  supreme.updateProfileStatus(` 𝐃𝐀𝐕𝐄-𝐌𝐃 is Active💠 Runtime ${runtime(process.uptime())}`)
+  supreme.updateProfileStatus(` 💠 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 On Deck | Hustling for: ${runtime(process.uptime())}`)
     .catch(err => console.error("Error updating status:", err));
 }
 
@@ -183,7 +182,7 @@ if (m.sender.startsWith("92") && global.anti92 === true) {
 
 if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.owner + "@s.whatsapp.net")) {
   if (!m.quoted) {
-    reply("Owner is currently offline, please wait for a response");
+    reply("😴Boss is laying low right now — hold tight, fam.");
     setTimeout(() => {
       supreme.sendMessage(m.key.remoteJid, { delete: m.key });
     }, 2000);
@@ -192,7 +191,7 @@ if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.ow
 
 if (global.owneroff) {
   if (!isGroup && !isOwner) {
-    let text = `Sorry, our *Owner* is currently offline. Please wait until they are online and avoid spamming messages 😇`
+    let text = `🗿Boss is off handling business. Try spamming and you’ll vanish quicker than free Wi-Fi. 😏`
     return supreme.sendMessage(m.chat, {
       text: `${text}`,
       contextInfo: {
@@ -214,17 +213,17 @@ if (global.owneroff) {
 }
 switch (command) {        
 case "public": { 
-if (!isBot) return reply(`Feature for owner only`)
+if (!isBot) return reply(`🚫 𝐃𝐀𝐕𝐄-𝐌𝐃: Only the boss touches this command.`)
 supreme.public = true
-reply(`Successfully👌 Changed Bot Mode To Public`)
+reply(`💠Bot Mode changed to Public`)
 }
 break;
 //////////////////self//////////////////
 case "self":
 case "private": { 
-if (!isBot) return reply(`Feature for owner only`)
+if (!isBot) return reply(`🚫 𝐃𝐀𝐕𝐄-𝐌𝐃: Only the boss touches this command.`)
 supreme.public = false
-reply(`Successfully💠 Changed Bot Mode To Self/Private`)
+reply(`💠Bot Mode changed to Self/Private`)
 }
 break;
 
@@ -238,13 +237,13 @@ break;
 
                     autoTyping = true
 
-                    reply(`Successfully 💠changed auto-typing to ${q}`)
+                    reply(`💨auto-typing successfully changed to ${q}`)
 
                 } else if (q === 'off') {
 
                     autoTyping = false
 
-                    reply(`Successfully 💠changed auto-typing to ${q}`)
+                    reply(`💨auto-typing successfully changed to ${q}`)
 
                 }
 
@@ -257,13 +256,13 @@ break;
                 if (q === 'on') {
                     autoRecording = true
 
-                    reply(`Successfully 💠changed auto-recording to ${q}`)
+                    reply(`💨auto-recording successfully changed to ${q}`)
 
                 } else if (q === 'off') {
 
                     autoRecording = false
 
-                    reply(`Successfully changed auto-recording to ${q} `)
+                    reply(`💨auto-recording successfully changed to ${q} `)
 
                 }
 
@@ -275,10 +274,10 @@ break;
   if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
   if (q === 'on') {
     autoread = true
-    reply(`Successfully💠 changed auto-read to ${q}`)
+    reply(`💨auto-read successfully changed to ${q}`)
   } else if (q === 'off') {
     autoread = false
-    reply(`Successfully💠 changed auto-read to ${q}`)
+    reply(`💨auto-read successfully changed to ${q}`)
   }
   break;
 ///////////////////GITCLONE//////////////  
@@ -339,7 +338,7 @@ const fs = require("fs");
 const path = require("path");
 
   try {
-    if (!text) return m.reply("What song do you want to download?");
+    if (!text) return m.reply("🎶Yo, you gotta tell me the track before I drop the heat.");
 
     let search = await yts(text);
     let link = search.all[0].url;
@@ -368,7 +367,7 @@ const path = require("path");
           });
 
           if (response.status !== 200) {
-            m.reply("sorry but the API endpoint didn't respond correctly. Try again later.");
+            m.reply("API’s acting like it’s on lunch break. Spin back later.");
             continue;
           }
                 ffmpeg(response.data)
@@ -388,7 +387,7 @@ const path = require("path");
               fs.unlinkSync(outputPath);
             })
             .on("error", (err) => {
-              m.reply("Download failed\n" + err.message);
+              m.reply("Download jammed harder than traffic on payday. I’ll spin the block and try again...\n" + err.message);
             });
 
           return;
@@ -400,9 +399,9 @@ const path = require("path");
    }
 
     // If no APIs succeeded
-    m.reply("An error occurred. All APIs might be down or unable to process the request.");
+    m.reply("😈Every API just rage quit harder than a sore loser in a street race. I’ll pull up again when they chill.");
   } catch (error) {
-    m.reply("Download failed\n" + error.message);
+    m.reply("Download just smoked harder than your ex's rebound💠\n" + error.message);
   }
 }
           break;

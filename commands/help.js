@@ -232,7 +232,7 @@ async function helpCommand(conn, m, quoted, commands = []) {
 > 🔚 Much Love, 𝘿𝘼𝙑𝙀-𝙏𝙀𝘾𝙃
 `;
 
-  try {
+   try {
     const imagePath = path.join(__dirname, '../assets/Dave_menu.jpg');
     const messagePayload = fs.existsSync(imagePath)
       ? {
@@ -261,11 +261,23 @@ async function helpCommand(conn, m, quoted, commands = []) {
           }
         };
 
+    // Send menu
     await conn.sendMessage(m, messagePayload, { quoted });
+
+    // Send random audio from your list
+    const audios = [
+      'https://files.catbox.moe/scopdq.mp3',
+      'https://files.catbox.moe/mla4ew.mp3',
+      'https://files.catbox.moe/p2jpxc.mp3',
+      'https://files.catbox.moe/736aob.mp3'
+    ];
+    const randomAudio = audios[Math.floor(Math.random() * audios.length)];
+    await conn.sendMessage(m, { audio: { url: randomAudio }, mimetype: 'audio/mpeg', ptt: true }, { quoted });
+
   } catch (err) {
     console.error('Error in help command:', err);
     await conn.sendMessage(m, { text: menuCaption });
   }
 }
 
-module.exports = helpCommand;
+ 

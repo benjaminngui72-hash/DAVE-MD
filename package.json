@@ -1,17 +1,12 @@
 {
-  "name": "Dave md",
-  "version": "1.2.1",
-  "description": "WhatsApp Bot",
-  "main": "index.js",
+  "name": "Dave-Xmd",
+  "version": "1.0.0",
+  "description": "x",
+  "main": "main.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docker:build": "docker build -t Dave-MD.",
-    "docker:run": "docker run -e SESSION_ID=$SESSION_ID DAVE-MD"
+   "code": "node main.js",
+        "start": "node run.js"
   },
-  "keywords": [
-    "whatsapp-bot"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -37,10 +32,10 @@
     "fs-extra": "^11.2.0",
     "gtts": "^0.2.1",
     "human-readable": "^0.2.1",
-    "javascript-obfuscator": "^4.1.0",
-    "jimp": "^0.16.13",
+    "jimp": "^0.16.13", 
     "jsdom": "^22.1.0",
     "libphonenumber-js": "^1.11.18",
+    "lodash": "^4.17.21",
     "libsignal": "^2.0.1",
     "link-preview-js": "^3.0.5",
     "moment-timezone": "^0.5.43",
@@ -69,8 +64,9 @@
     "yargs": "^17.6.0",
     "yargs-parser": "^21.1.1",
     "youtube-yts": "^2.0.0",
+    "readline": "^1.3.0",
     "youtubedl-core": "^4.11.7",
     "yt-search": "^2.12.1",
     "ytdl-core": "^4.11.5"
   }
-}
+  }

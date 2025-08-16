@@ -17,7 +17,7 @@ const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
 const { default: connConnect, getAggregateVotesInPollMessage, delay, PHONENUMBER_MCC, makeCacheableSignalKeyStore, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@whiskeysockets/baileys")
-const createToxxicStore = require('./lib/store');
+const createToxxicStore = require('./lib/basestore');
 const store = createToxxicStore('./store', {
   logger: pino().child({ level: 'silent', stream: 'store' }) });
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())

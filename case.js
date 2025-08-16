@@ -36,7 +36,7 @@ const sender = m.key.fromMe
 
 const senderNumber = sender.split('@')[0];
 const budy = (typeof m.text === 'string' ? m.text : '');
-const prefa = ["", "!", ".", ",", "😹", "🗿"];
+const prefa = ["", "!", ".", ",", "😹", "😒"];
 const prefix = /^[°zZ#$@+,.?=''():√%!¢£¥€π¤ΠΦ&><™©®Δ^βα¦|/\\©^]/.test(body) ? body.match(/^[°zZ#$@+,.?=''():√%¢£¥€π¤ΠΦ&><!™©®Δ^βα¦|/\\©^]/gi) : '/';
 
 // Buat Grup
@@ -172,7 +172,7 @@ if (global.autorecordtype) {
 }
 
 if (autobio) {
-  supreme.updateProfileStatus(` 𝙹𝚄𝙽𝙴 𝙼𝙳 𝙱𝙾𝚃 is Online✅ Runtime ${runtime(process.uptime())}`)
+  supreme.updateProfileStatus(` 𝐃𝐀𝐕𝐄-𝐌𝐃 is Active 💨 Runtime ${runtime(process.uptime())}`)
     .catch(err => console.error("Error updating status:", err));
 }
 
@@ -182,7 +182,7 @@ if (m.sender.startsWith("92") && global.anti92 === true) {
 
 if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.owner + "@s.whatsapp.net")) {
   if (!m.quoted) {
-    reply("Owner is currently offline, please wait for a response");
+    reply("Boss maybe offline, please wait for a response");
     setTimeout(() => {
       supreme.sendMessage(m.key.remoteJid, { delete: m.key });
     }, 2000);
@@ -191,7 +191,7 @@ if (m.message.extendedTextMessage?.contextInfo?.mentionedJid?.includes(global.ow
 
 if (global.owneroff) {
   if (!isGroup && !isOwner) {
-    let text = `Sorry, our *Owner* is currently offline. Please wait until they are online and avoid spamming messages 😇`
+    let text = `huh, the *boss* is currently on a secret mission. Please wait until they are online and avoid spamming messages 🥹`
     return supreme.sendMessage(m.chat, {
       text: `${text}`,
       contextInfo: {
@@ -215,15 +215,15 @@ switch (command) {
 case "public": { 
 if (!isBot) return reply(`Feature for owner only`)
 supreme.public = true
-reply(`Successfully✅ Changed Bot Mode To Public`)
+reply(`Mode successfully changed to Public💠`)
 }
 break;
 //////////////////self//////////////////
 case "self":
 case "private": { 
-if (!isBot) return reply(`Feature for owner only`)
+if (!isBot) return reply(`command reserved for owner only`)
 supreme.public = false
-reply(`Successfully✅ Changed Bot Mode To Self/Private`)
+reply(`Mode successfully changed to Private💠`)
 }
 break;
 
@@ -237,13 +237,13 @@ break;
 
                     autoTyping = true
 
-                    reply(`Successfully ✅changed auto-typing to ${q}`)
+                    reply(`auto-typing successfully changed to ${q}`)
 
                 } else if (q === 'off') {
 
                     autoTyping = false
 
-                    reply(`Successfully ✅changed auto-typing to ${q}`)
+                    reply(`auto-typing successfully changed to ${q}`)
 
                 }
 
@@ -256,13 +256,13 @@ break;
                 if (q === 'on') {
                     autoRecording = true
 
-                    reply(`Successfully ✅changed auto-recording to ${q}`)
+                    reply(`auto-recording successfully changed to ${q}`)
 
                 } else if (q === 'off') {
 
                     autoRecording = false
 
-                    reply(`Successfully changed auto-recording to ${q} `)
+                    reply(`auto-recording successfully changed to ${q} `)
 
                 }
 
@@ -274,16 +274,16 @@ break;
   if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
   if (q === 'on') {
     autoread = true
-    reply(`Successfully✅ changed auto-read to ${q}`)
+    reply(`auto-read successfully changed to ${q}`)
   } else if (q === 'off') {
     autoread = false
-    reply(`Successfully✅ changed auto-read to ${q}`)
+    reply(`auto-read successfully changed to ${q}`)
   }
   break;
 ///////////////////GITCLONE//////////////  
     case 'gitclone': {
 
-                      if (!text) return m.reply(`🖇️ Provide a github repo link.\n\n *Example:* .gitclone https://github.com/Vinpink2/JUNE-MD`)
+                      if (!text) return m.reply(`🖇️ Provide a github repo link.\n\n *Example:* .gitclone https://github.com/giftdee/DAVE-MD`)
 
 if (!text.includes('github.com')) return reply(`Is that a GitHub repo link ?!`)
 
@@ -314,10 +314,10 @@ let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
   if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
   if (q === 'on') {
     autobio = true
-    reply(`Auto-bio Successfully✅ changed to ${q}`)
+    reply(`💠Successfully changed  Auto-bio  to ${q}`)
   } else if (q === 'off') {
     autobio = false
-    reply(`Auto-bio Successfully✅ changed to ${q} `)
+    reply(`💠Successfully changed Auto-bio to ${q} `)
   }
   break   
 
@@ -379,7 +379,7 @@ const path = require("path");
                 {
                   document: { url: outputPath },
                   mimetype: "audio/mp3",
-                  caption: " *DAVE-XMD* ",
+                  caption: " *DAVE-MD* ",
                   fileName: outputFileName,
                 },
                 { quoted: m }
@@ -399,7 +399,7 @@ const path = require("path");
    }
 
     // If no APIs succeeded
-    m.reply("An error occurred. All APIs might be down or unable to process the request.");
+    m.reply("i hit a snagg. All APIs are unable to process the request.");
   } catch (error) {
     m.reply("Download failed\n" + error.message);
   }

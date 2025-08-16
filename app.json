@@ -7,7 +7,7 @@
     "env": {
     "OWNER_NAME": {
       "description": "enter your owner name here",
-      "value": "Supreme",
+      "value": "Gifted Dave",
       "required": false
     },
     "BOT_PREFIX": {

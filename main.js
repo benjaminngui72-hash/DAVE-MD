@@ -1,4 +1,3 @@
-
 const settings = require('./settings');
 require('./config.js');
 const { isBanned } = require('./lib/isBanned');
@@ -13,8 +12,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const { addWelcome, delWelcome, isWelcomeOn, addGoodbye, delGoodBye, isGoodByeOn } = require('./lib/index');
 
 // Command imports
-const tagAllCommand = require('./commands/tagall');
-const getppCommand =require('./commands/getpp');
+const tagAllCommand = require('./commands/tagall');const getppCommand =require('./commands/getpp');
+const { handleAntideleteCommand, handleMessageRevocation, storeMessage } = require('./commands/antidelete');
 const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');
 const { promoteCommand } = require('./commands/promote');
@@ -52,7 +51,7 @@ const { dareCommand } = require('./commands/dare');
 const { truthCommand } = require('./commands/truth');
 const { clearCommand } = require('./commands/clear');
 const pingCommand = require('./commands/ping');
-const aliveCommand = require('./commands/alive');
+//const aliveCommand = require('./commands/alive');
 const blurCommand = require('./commands/img-blur');
 const welcomeCommand = require('./commands/welcome');
 const goodbyeCommand = require('./commands/goodbye');
@@ -61,7 +60,7 @@ const { handleAntiBadwordCommand, handleBadwordDetection } = require('./lib/anti
 const antibadwordCommand = require('./commands/antibadword');
 const { handleChatbotCommand, handleChatbotResponse } = require('./commands/chatbot');
 const takeCommand = require('./commands/take');
-const { flirtCommand } = require('./commands/flirt');
+//const { flirtCommand } = require('./commands/flirt');
 const characterCommand = require('./commands/character');
 const wastedCommand = require('./commands/wasted');
 const shipCommand = require('./commands/ship');
@@ -79,19 +78,18 @@ const { simpCommand } = require('./commands/simp');
 const { stupidCommand } = require('./commands/stupid');
 const stickerTelegramCommand = require('./commands/stickertelegram');
 const textmakerCommand = require('./commands/textmaker');
-const { handleAntideleteCommand, handleMessageRevocation, storeMessage } = require('./commands/antidelete');
 const clearTmpCommand = require('./commands/cleartmp');
 const setProfilePicture = require('./commands/setpp');
 const instagramCommand = require('./commands/instagram');
 const facebookCommand = require('./commands/facebook');
-//const playCommand = require('./commands/play');
+const playCommand = require('./commands/play');
 const tiktokCommand = require('./commands/tiktok');
 const songCommand = require('./commands/song');
 const aiCommand = require('./commands/ai');
 const { handleTranslateCommand } = require('./commands/translate');
 const { handleSsCommand } = require('./commands/ss');
 const { addCommandReaction, handleAreactCommand } = require('./lib/reactions');
-const { goodnightCommand } = require('./commands/goodnight');
+//const { goodnightCommand } = require('./commands/goodnight');
 const { shayariCommand } = require('./commands/shayari');
 const { rosedayCommand } = require('./commands/roseday');
 const imagineCommand = require('./commands/imagine');
@@ -102,7 +100,7 @@ const videoCommand = require('./commands/video');
 global.packname = settings.packname;
 global.author = settings.author;
 global.channelLink = "https://whatsapp.com/channel/0029VbApvFQ2Jl84lhONkc3k";
-global.ytch = "Gifteddave";
+global.ytch = "@davlodavlo19";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {
@@ -111,7 +109,7 @@ const channelInfo = {
         isForwarded: false,
         forwardedNewsletterMessageInfo: {
             newsletterJid: '120363400480173280@newsletter',
-            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
+            newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
             serverMessageId: -1
         }
     }
@@ -423,8 +421,8 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     await weatherCommand(sock, chatId, city);
                 } else {
                     await sock.sendMessage(chatId, { text: 'Please specify a city, e.g., .weather London', ...channelInfo });
-                }
-                break;
+                                                                                   }
+                    break;
             case userMessage === '.news':
                 await newsCommand(sock, chatId);
                 break;
@@ -510,9 +508,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage === '.ping':
                 await pingCommand(sock, chatId, message);
                 break;
-            case userMessage === '.uptime':
-                await aliveCommand(sock, chatId, message);
-                break;
+            /*case userMessage === '.uptime':
+           //     await aliveCommand(sock, chatId, message);
+            //    break;*/
             case userMessage.startsWith('.blur'):
                 const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
                 await blurCommand(sock, chatId, message, quotedMessage);
@@ -595,9 +593,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const takeArgs = userMessage.slice(5).trim().split(' ');
                 await takeCommand(sock, chatId, message, takeArgs);
                 break;
-            case userMessage === '.flirt':
+           /* case userMessage === '.flirt':
                 await flirtCommand(sock, chatId, message);
-                break;
+               break;*/
             case userMessage.startsWith('.character'):
                 await characterCommand(sock, chatId, message);
                 break;
@@ -640,15 +638,17 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 break;
 
             case userMessage === '.vv':
+            case userMessage === '...':
+            case userMessage === '.rvo':
                 await viewOnceCommand(sock, chatId, message);
                 break;
             case userMessage === '.clearsession' || userMessage === '.clearsesi':
                 await clearSessionCommand(sock, chatId, message);
                 break;
             case userMessage.startsWith('.autostatus'):
-                const autoStatusArgs = userMessage.split(' ').slice(1);
-                await autoStatusCommand(sock, chatId, message, autoStatusArgs);
-                break;
+               const autoStatusArgs = userMessage.split(' ').slice(1);
+               await autoStatusCommand(sock, chatId, message, autoStatusArgs);
+               break;
             case userMessage.startsWith('.simp'):
                 await simpCommand(sock, chatId, message);
                 break;
@@ -720,21 +720,20 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage === '.setpp':
                 await setProfilePicture(sock, chatId, message);
                 break;
-               case userMessage === '.getpp':
-                await getppCommand(sock, chatId, message);
-                break;            
-                
+              case userMessage === '.getpp':
+               await getppCommand(sock, chatId, message);
+              break;            
+
             case userMessage.startsWith('.instagram') || userMessage.startsWith('.insta') || userMessage.startsWith('.ig'):
                 await instagramCommand(sock, chatId, message);
                 break;
             case userMessage.startsWith('.fb') || userMessage.startsWith('.facebook'):
                 await facebookCommand(sock, chatId, message);
                 break;
-            case userMessage.startsWith('.song') || userMessage.startsWith('.music'):
+            case userMessage.startsWith('.song') || userMessage.startsWith('.mp3'):
                 await playCommand(sock, chatId, message);
                 break;
-            case
-userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessage.startsWith('.yts'):
+           case userMessage.startsWith('.ytmp3') || userMessage.startsWith('.yts'):
                 await songCommand(sock, chatId, message);
                 break;
             case userMessage.startsWith('.video') || userMessage.startsWith('.ytmp4'):
@@ -758,9 +757,13 @@ userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessag
                 const isOwner = message.key.fromMe;
                 await handleAreactCommand(sock, chatId, message, isOwner);
                 break;
-            case userMessage === '.goodnight' || userMessage === '.lovenight' || userMessage === '.gn':
-                await goodnightCommand(sock, chatId, message);
-                break;
+          //  case userMessage === '.goodnight' || userMessage === '.lovenight' || userMessage === '.gn':
+            //    await goodnightCommand(sock, chatId, message);
+           //     break;
+
+
+
+
             case userMessage === '.shayari' || userMessage === '.shayri':
                 await shayariCommand(sock, chatId, message);
                 break;
@@ -807,8 +810,8 @@ userMessage.startsWith('.mp3') || userMessage.startsWith('.ytmp3') || userMessag
             // After command is processed successfully
             await addCommandReaction(sock, message);
         }
-    } catch (error) {
-      console.error('❌ Error in message handler:', error.message);
+    } catc
+        console.error('❌ Error in message handler:', error.message);
         // Only try to send error message if we have a valid chatId
         if (chatId) {
             await sock.sendMessage(chatId, {
@@ -871,7 +874,7 @@ async function handleGroupParticipantUpdate(sock, update) {
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: '120363400480173280@newsletter',
-                            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
+                            newsletterName: 'DAVE-MD',
                             serverMessageId: -1
                         }
                     }
@@ -893,7 +896,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             const data = JSON.parse(fs.readFileSync('./data/userGroupData.json'));
             const goodbyeData = data.goodbye[id];
             const goodbyeMessage = goodbyeData?.message || 'Goodbye {user} 👋';
-            const channelId = goodbyeData?.channelId || '@newsletter';
+            const channelId = goodbyeData?.channelId || '120363400480173280@newsletter',
 
             // Send goodbye message for each leaving participant
             for (const participant of participants) {
@@ -909,8 +912,8 @@ async function handleGroupParticipantUpdate(sock, update) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363400480173280@newsletter',
-                            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
+                            newsletterJid: channelId,
+                            newsletterName: 'DAVE-MD',
                             serverMessageId: -1
                         }
                     }
@@ -930,6 +933,3 @@ module.exports = {
         await handleStatusUpdate(sock, status);
     }
 };
-
-        
-     

@@ -99,8 +99,8 @@ const videoCommand = require('./commands/video');
 // Global settings
 global.packname = settings.packname;
 global.author = settings.author;
-global.channelLink = "https://whatsapp.com/channel/0029VbApvFQ2Jl84lhONkc3k";
-global.ytch = "@davlodavlo19";
+global.channelLink = "https://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A";
+global.ytch = "supremLord";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {
@@ -108,8 +108,8 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: false,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363400480173280@newsletter',
-            newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
+            newsletterJid: '@newsletter',
+            newsletterName: '𝐉ᴜɴᴇ 𝐌ᴅ',
             serverMessageId: -1
         }
     }
@@ -187,7 +187,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
         if (!message.key.fromMe) incrementMessageCount(chatId, senderId);
 
-        // Check for bad words FIRST, before ANY other processing
+            // Check for bad words FIRST, before ANY other processing
         if (isGroup && userMessage) {
             await handleBadwordDetection(sock, chatId, message, userMessage, senderId);
         }
@@ -337,8 +337,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     console.error('Error reading access mode:', error);
                     await sock.sendMessage(chatId, { text: 'Failed to read bot mode status', ...channelInfo });
                     return;
-                }
-
+            }
                 const action = userMessage.split(' ')[1]?.toLowerCase();
                 // If no argument provided, show current status
                 if (!action) {
@@ -421,8 +420,8 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     await weatherCommand(sock, chatId, city);
                 } else {
                     await sock.sendMessage(chatId, { text: 'Please specify a city, e.g., .weather London', ...channelInfo });
-                                                                                   }
-                    break;
+                }
+                break;
             case userMessage === '.news':
                 await newsCommand(sock, chatId);
                 break;
@@ -560,8 +559,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 if (!isGroup) {
                     await sock.sendMessage(chatId, { text: 'This command can only be used in groups.', ...channelInfo });
                     return;
-                }
-
+                        }
                 const adminStatus = await isAdmin(sock, chatId, senderId);
                 isSenderAdmin = adminStatus.isSenderAdmin;
                 isBotAdmin = adminStatus.isBotAdmin;
@@ -810,7 +808,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
             // After command is processed successfully
             await addCommandReaction(sock, message);
         }
-    } catc
+    } catch (error) {
         console.error('❌ Error in message handler:', error.message);
         // Only try to send error message if we have a valid chatId
         if (chatId) {
@@ -856,7 +854,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             const data = JSON.parse(fs.readFileSync('./data/userGroupData.json'));
             const welcomeData = data.welcome[id];
             const welcomeMessage = welcomeData?.message || 'Welcome {user} to the group! 🎉';
-            const channelId = welcomeData?.channelId || '120363400480173280@newsletter';
+            const channelId = welcomeData?.channelId || '@newsletter';
 
             // Send welcome message for each new participant
             for (const participant of participants) {
@@ -873,15 +871,14 @@ async function handleGroupParticipantUpdate(sock, update) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363400480173280@newsletter',
-                            newsletterName: 'DAVE-MD',
+                            newsletterJid: channelId,
+                            newsletterName: 'June MD',
                             serverMessageId: -1
                         }
                     }
                 });
             }
-        }
-
+    }
         // Handle leave events
         if (action === 'remove') {
             // Check if goodbye is enabled for this group
@@ -896,7 +893,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             const data = JSON.parse(fs.readFileSync('./data/userGroupData.json'));
             const goodbyeData = data.goodbye[id];
             const goodbyeMessage = goodbyeData?.message || 'Goodbye {user} 👋';
-            const channelId = goodbyeData?.channelId || '120363400480173280@newsletter',
+            const channelId = goodbyeData?.channelId || '@newsletter';
 
             // Send goodbye message for each leaving participant
             for (const participant of participants) {
@@ -913,7 +910,7 @@ async function handleGroupParticipantUpdate(sock, update) {
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: channelId,
-                            newsletterName: 'DAVE-MD',
+                            newsletterName: 'June MD',
                             serverMessageId: -1
                         }
                     }
@@ -933,3 +930,4 @@ module.exports = {
         await handleStatusUpdate(sock, status);
     }
 };
+                

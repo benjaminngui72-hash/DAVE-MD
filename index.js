@@ -162,23 +162,23 @@ await delay(1999)
             await conn.sendMessage(botNumber, { 
                 text: 
                 `
-┏❐═⭔ *CONNECTED* ⭔═❐
-┃⭔ *Bot:* 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃
-┃⭔ *Time:* ${new Date().toLocaleString()}
-┃⭔ *Status:* Online
-┃⭔ *User:* ${botNumber}
-┗❐═⭔════════⭔═❐`,
+╔══❐ *𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 CONNECTED* ❐══╗
+║ ➤ *Bot:* 𝐃𝐀𝐕𝐄-𝐗𝐌𝐃
+║ ➤ *Time:* ${new Date().toLocaleString()}
+║ ➤ *Status:* Online ✅
+║ ➤ *User:* ${botNumber}
+╚════════════════════════════╝`,
                 contextInfo: {
                     forwardingScore: 1,
                     isForwarded: false,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363400480173280@newsletter',
-                        newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
+                        newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                         serverMessageId: -1
                     }
                 }
             });
-console.log(color('>DAVE-XMD is Connected< [ ! ]','red'))
+console.log(color('>DAVE-MD is Connected< [ ! ]','red'))
                 }
 
 } catch (err) {
@@ -208,7 +208,7 @@ conn.ev.on("messages.upsert",  () => { })
                     : mek.message;
 
             if (mek.key && mek.key.remoteJid === 'status@broadcast') {
-                let emoji = [ "💙","❤️", "🌚","😍", "🙏" ];
+                let emoji = [ "💔","❤️", "🌚","😀", "👌" ];
                 let sigma = emoji[Math.floor(Math.random() * emoji.length)];
                 await conn.readMessages([mek.key]);
                 conn.sendMessage(
@@ -270,7 +270,7 @@ conn.ev.on('group-participants.update', async (update) => {
                             isForwarded: false,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363400480173280@newsletter',
-                                newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
+                                newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                                 serverMessageId: -1
                             }
                         }

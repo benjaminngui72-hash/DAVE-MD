@@ -20,7 +20,7 @@ async function aliveCommand(sock, chatId, message) {
                 isForwarded: false,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363400480173280@newsletter',
-                    newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃',
+                    newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃',
                     serverMessageId: -1
                 }
             }

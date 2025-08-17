@@ -35,7 +35,7 @@ async function githubCommand(sock, chatId, message) {
           isForwarded: true,
           forwardedNewsletterMessageInfo: {
             newsletterJid: '120363400480173280@newsletter',
-            newsletterName: '𝐃𝐀𝐕𝐄-𝐗𝐌𝐃 UPDATES',
+            newsletterName: '𝐃𝐀𝐕𝐄-𝐌𝐃 UPDATES',
             serverMessageId: -1
           }
         }

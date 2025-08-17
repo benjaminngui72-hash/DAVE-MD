@@ -16,31 +16,37 @@ const channelInfo = {
     }
 };
 
-async function viewOnceCommand(sock, chatId, message) {
+async function viewOnceCommand(sock, chatId, message, sender) {
     try {
-        // Get quoted message with better error handling
+        // Owner check
+        if (!settings.OWNER.includes(sender)) {
+            await sock.sendMessage(chatId, { 
+                text: '🙃 Sorry, this command is just for my awesome owner 🙂🙌',
+                ...channelInfo
+            });
+            return;
+        }
+
         const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage ||
                             message.message?.imageMessage ||
                             message.message?.videoMessage;
 
         if (!quotedMessage) {
             await sock.sendMessage(chatId, { 
-                text: '🛑 _Please reply to a view once message!_',
+                text: '😒 Oops! You need to reply to a view-once message to unlock it 🙂',
                 ...channelInfo
             });
             return;
         }
 
-        // Enhanced view once detection
         const isViewOnceImage = quotedMessage.imageMessage?.viewOnce === true || 
                               quotedMessage.viewOnceMessage?.message?.imageMessage ||
                               message.message?.viewOnceMessage?.message?.imageMessage;
-                              
+
         const isViewOnceVideo = quotedMessage.videoMessage?.viewOnce === true || 
                               quotedMessage.viewOnceMessage?.message?.videoMessage ||
                               message.message?.viewOnceMessage?.message?.videoMessage;
 
-        // Get the actual message content
         let mediaMessage;
         if (isViewOnceImage) {
             mediaMessage = quotedMessage.imageMessage || 
@@ -53,9 +59,8 @@ async function viewOnceCommand(sock, chatId, message) {
         }
 
         if (!mediaMessage) {
-            console.log('Message structure:', JSON.stringify(message, null, 2));
             await sock.sendMessage(chatId, { 
-                text: ' 🛑 Could not detect view once message! Please make sure you replied to a view once image/video.',
+                text: '😒 Hmm, couldn’t detect a view-once message 🙃 Make sure you reply to one 🙂',
                 ...channelInfo
             });
             return;
@@ -64,26 +69,20 @@ async function viewOnceCommand(sock, chatId, message) {
         // Handle view once image
         if (isViewOnceImage) {
             try {
-                console.log('📸 Processing view once image...');
                 const stream = await downloadContentFromMessage(mediaMessage, 'image');
                 let buffer = Buffer.from([]);
-                for await (const chunk of stream) {
-                    buffer = Buffer.concat([buffer, chunk]);
-                }
+                for await (const chunk of stream) buffer = Buffer.concat([buffer, chunk]);
 
                 const caption = mediaMessage.caption || '';
-                
                 await sock.sendMessage(chatId, { 
                     image: buffer,
-                    caption: `*𝐃𝐀𝐕𝐄-𝐌𝐃*\n\n*ViewOnce:* Image 📸\n${caption ? `*Caption:* ${caption}` : ''}`,
+                    caption: `🙌 *𝐃𝐀𝐕𝐄-𝐌𝐃* 🙌\n\n*Unlocked Image 🙂*\n${caption ? `*Caption:* ${caption}` : ''}`,
                     ...channelInfo
                 });
-                console.log('_View once image processed successfully_');
                 return;
             } catch (err) {
-                console.error('🛑 Error downloading image:', err);
                 await sock.sendMessage(chatId, { 
-                    text: '🛑 Failed to process view once image! Error: ' + err.message,
+                    text: '😒 Failed to unlock image 🙃 Error: ' + err.message,
                     ...channelInfo
                 });
                 return;
@@ -93,62 +92,46 @@ async function viewOnceCommand(sock, chatId, message) {
         // Handle view once video
         if (isViewOnceVideo) {
             try {
-                console.log('Processing view once video...');
-                
-                // Create temp directory if it doesn't exist
                 const tempDir = path.join(__dirname, '../temp');
-                if (!fs.existsSync(tempDir)) {
-                    fs.mkdirSync(tempDir);
-                }
+                if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
 
                 const tempFile = path.join(tempDir, `temp_${Date.now()}.mp4`);
                 const stream = await downloadContentFromMessage(mediaMessage, 'video');
                 const writeStream = fs.createWriteStream(tempFile);
-                
-                for await (const chunk of stream) {
-                    writeStream.write(chunk);
-                }
+                for await (const chunk of stream) writeStream.write(chunk);
                 writeStream.end();
-
-                // Wait for file to be written
                 await new Promise((resolve) => writeStream.on('finish', resolve));
 
                 const caption = mediaMessage.caption || '';
-
                 await sock.sendMessage(chatId, { 
                     video: fs.readFileSync(tempFile),
-                    caption: `*𝐃𝐀𝐕𝐄-𝐌𝐃*\n\n*ViewOnce* Video 📹\n${caption ? `*Caption:* ${caption}` : ''}`,
+                    caption: `🙌 *𝐃𝐀𝐕𝐄-𝐌𝐃* 🙌\n\n*Unlocked Video 🙂*\n${caption ? `*Caption:* ${caption}` : ''}`,
                     ...channelInfo
                 });
 
-                // Clean up temp file
                 fs.unlinkSync(tempFile);
-                
-                console.log('View once video processed successfully');
                 return;
             } catch (err) {
-                console.error(' 🛑 Error processing video:', err);
                 await sock.sendMessage(chatId, { 
-                    text: ' 🛑 Failed to process view once video! Error: ' + err.message,
+                    text: '😒 Failed to unlock video 🙃 Error: ' + err.message,
                     ...channelInfo
                 });
                 return;
             }
         }
 
-        // If we get here, it wasn't a view once message
+        // Not a view once message
         await sock.sendMessage(chatId, { 
-            text: '🛑 This is not a view once message! Please reply to a view once image/video.',
+            text: '😒 This isn’t a view-once message 🙃 Please reply to one 🙂',
             ...channelInfo
         });
 
     } catch (error) {
-        console.error('🛑 Error in viewonce command:', error);
         await sock.sendMessage(chatId, { 
-            text: '🛑 Error processing view once message! Error: ' + error.message,
+            text: '🛑 Something went wrong 🙃 Error: ' + error.message,
             ...channelInfo
         });
     }
 }
 
-module.exports = viewOnceCommand; 
+module.exports = viewOnceCommand;

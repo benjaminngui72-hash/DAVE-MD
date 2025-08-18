@@ -24,10 +24,10 @@ Click below to fork DAVE-XMD to your GitHub account:
 ## 💠 Pair Your DAVE-XMD Session
 
 **Step 1:** Generate your session ID for Heroku:  
-[![PAIR DAVE-XMD — Server 1](https://img.shields.io/badge/PAIR%20CODE%20SERVER%201-DAVE--XMD-blue?style=for-the-badge)](https://cypherxdomini-93c190b43dce.herokuapp.com/)  
+[![PAIR DAVE-MD — Server 1](https://img.shields.io/badge/PAIR%20CODE%20SERVER%201-DAVE--MD-blue?style=for-the-badge)](https://cypherxdomini-93c190b43dce.herokuapp.com/)  
 
 **Step 2:** Creds Jason for other sites:  
-[![PAIR DAVE-XMD — Server 2](https://img.shields.io/badge/PAIR%20CODE%20SERVER%202-DAVE--XMD-blue?style=for-the-badge)](https://dacmvexmd-pair-site.onrender.com/)
+[![PAIR DAVE-MD — Server 2](https://img.shields.io/badge/PAIR%20CODE%20SERVER%202-DAVE--MD-blue?style=for-the-badge)](https://dacmvexmd-pair-site.onrender.com/)
 
 ---
 

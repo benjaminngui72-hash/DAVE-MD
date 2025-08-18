@@ -2,12 +2,12 @@
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Poppins&size=40&duration=3000&pause=1000&color=33FF00&center=true&vCenter=true&width=900&height=80&lines=𝐃𝐀𝐕𝐄-𝐌𝐃;Multi+Device+Whatsapp+Bot;Made+By+DAVE-TECH" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Rockwell&size=40&duration=3000&pause=1000&color=33FF00&center=true&vCenter=true&width=900&height=80&lines=DAVE-MD;Multi+Device+Whatsapp+Bot;Made+by+DAVE" alt="Typing SVG" />
   </a> 
 </div> 
 
 <div align="center"> 
-  <img src="https://files.catbox.moe/lidsgj.jpg" alt="DAVE-XMD Logo" height="300"> 
+  <img src="https://files.catbox.moe/lidsgj.jpg" alt="DAVE-MD Logo" height="300"> 
 </div>
 
 ---

@@ -1,45 +1,57 @@
 {
-    "name": "Dave-XMd",
-    "description": "A whatsApp bot based on Baileysjs linrary (Ts+Js) with Multi Device support",
-    "repository": "https://github.com/anonphoenix007/CH13",
-    "logo": "https://telegra.ph/file/7aa528767ed96ddc17bc2.jpg",
-    "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
-    "env": {
+  "name": "DAVE-XMD",
+  "description": "A WhatsApp bot based on BaileysJS library (TS+JS) with Multi Device support",
+  "repository": "https://github.com/giftdee/DAVE-MD",
+  "logo": "https://telegra.ph/file/7aa528767ed96ddc17bc2.jpg",
+  "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
+  "env": {
     "OWNER_NAME": {
-      "description": "enter your owner name here",
+      "description": "Enter your owner name here",
       "value": "Gifted Dave",
       "required": false
     },
     "BOT_PREFIX": {
-      "description": "Put your bot prefix of desire here",
+      "description": "Bot prefix of your choice",
       "value": ".",
       "required": false
     },
-   "AUTO_STATUS": {
-      "description": "type true if you want bot to view status if else type false",
+    "AUTO_STATUS": {
+      "description": "Set true to auto-view status, false to disable",
       "value": "true",
       "required": false
     },
-  "AUTO_READ": {
-      "description": "type true if you want bot to read incoming messages if else type false",
+    "AUTO_READ": {
+      "description": "Set true to auto-read incoming messages, false to disable",
       "value": "true",
       "required": false
     },
     "SESSION_ID": {
-      "description": "put your session ID here",
+      "description": "Put your session ID here",
       "value": "DAVE-XMD-WHATSAPP-BOT;;;=>",
       "required": true
     }
-    },
-    "buildpacks": [
-      {
-        "url": "heroku/nodejs"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
     },
     {
       "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
     },
     {
       "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
-          }
-     ]
-} 
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "stack": "heroku-22"
+}

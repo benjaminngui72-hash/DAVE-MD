@@ -2,7 +2,7 @@
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Rockwell&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=DAVE-XMD;Multi+Device+Whatsapp+Bot;Made+By+Gifted" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Rockwell&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=DAVE-XMD;Multi+Device+Whatsapp+Bot;Made+By+𝗗𝗔𝗩𝗘-𝗧𝗘𝗖𝗛" alt="Typing SVG" />
   </a> 
 </div> 
 

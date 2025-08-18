@@ -13,7 +13,7 @@
 ---
 
 ## 🍴 Fork This Repository
-Click below to fork DAVE-XMD to your GitHub account:
+Click below to fork DAVE-MD to your GitHub account:
 
 <a href="https://github.com/giftdee/DAVE-MD/fork" target="_blank">
   <img src="https://img.shields.io/badge/Fork%20Bot%20Repo-100000?style=for-the-badge&logo=github&logoColor=white" alt="Fork Repo"/>
@@ -21,7 +21,7 @@ Click below to fork DAVE-XMD to your GitHub account:
 
 ---
 
-## 💠 Pair Your DAVE-XMD Session
+## 💠 Pair Your DAVE-MD Session
 
 **Step 1:** Generate your session ID for Heroku:  
 [![PAIR DAVE-MD — Server 1](https://img.shields.io/badge/PAIR%20CODE%20SERVER%201-DAVE--MD-blue?style=for-the-badge)](https://cypherxdomini-93c190b43dce.herokuapp.com/)  

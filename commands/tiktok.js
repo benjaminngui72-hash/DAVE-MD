@@ -1,6 +1,7 @@
-const { ttdl } = require("ruhend-scraper");
-const axios = require('axios');
-
+# Copy content from TikTok.js if neededconst { ttdl 
+# } = require("ruhend-scraper");
+nano TikTok.jsconst axios = require('axios');
+# Paste or merge any additional code
 // Store processed message IDs to prevent duplicates
 const processedMessages = new Set();
 

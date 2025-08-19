@@ -1,33 +1,28 @@
 {
-  "name": "DAVE-XMD",
-  "description": "A WhatsApp bot based on BaileysJS library (TS+JS) with Multi Device support",
+  "name": "DAVE-MD",
+  "description": "A WhatsApp bot based on Baileysjs library (Ts+Js) with Multi Device support",
   "repository": "https://github.com/giftdee/DAVE-MD",
-  "logo": "https://telegra.ph/file/7aa528767ed96ddc17bc2.jpg",
+  "logo": "https://files.catbox.moe/7ibt7j.jpg",
   "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
   "env": {
     "OWNER_NAME": {
       "description": "Enter your owner name here",
-      "value": "Gifted Dave",
+      "value": "Supreme",
       "required": false
     },
     "BOT_PREFIX": {
-      "description": "Bot prefix of your choice",
+      "description": "Put your bot prefix of desire here",
       "value": ".",
       "required": false
     },
     "AUTO_STATUS": {
-      "description": "Set true to auto-view status, false to disable",
-      "value": "true",
-      "required": false
-    },
-    "AUTO_READ": {
-      "description": "Set true to auto-read incoming messages, false to disable",
+      "description": "Type true if you want bot to view status else false",
       "value": "true",
       "required": false
     },
     "SESSION_ID": {
-      "description": "Put your session ID here",
-      "value": "DAVE-XMD-WHATSAPP-BOT;;;=>",
+      "description": "Put your session ID here (should start with DAVE-MD:~)",
+      "value": "",
       "required": true
     }
   },
@@ -45,13 +40,12 @@
   "formation": {
     "worker": {
       "quantity": 1,
-      "size": "basic"
+      "size": "standard-2x"
     }
   },
   "addons": [
     {
-      "plan": "heroku-postgresql"
+      "plan": "heroku-postgresql:essential-0"
     }
-  ],
-  "stack": "heroku-22"
+  ]
 }

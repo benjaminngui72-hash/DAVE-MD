@@ -2,17 +2,18 @@ const fs = require('fs')
 const chalk = require('chalk')
 if (fs.existsSync('.env')) require('dotenv').config({ path: __dirname+'/.env' })
 
-
 global.SESSION_ID = process.env.SESSION_ID || '' 
+
 //~~~~~~~~~~~ Settings Owner ~~~~~~~~~~~//
 global.owner = "254104260236"
 global.developer = "254104260236"
 global.bot = ""
 global.devname = "Dave"
-global.ownername = process.env.OWNER_NAME ||'Gifted Dave'
+global.ownername = process.env.OWNER_NAME || 'Gifted Dave'
 global.botname = "𝐃𝐀𝐕𝐄-𝐌𝐃"
 global.versisc = "2"
 global.packname = "𝐃𝐀𝐕𝐄-𝐌𝐃"
+
 //~~~~~~~~~~~ Settings Sosmed ~~~~~~~~~~~//
 global.linkwa = "https://wa.me/254104260236"
 global.linkyt = "https://www.youtube.com/Davke"
@@ -20,11 +21,10 @@ global.linktt = "https://tiktok.com"
 global.linktele = "https://t.me"
 
 //~~~~~~~~~~~ Settings Bot ~~~~~~~~~~~//
-global.prefix = process.env.BOT_PREFIX ||'.'
+global.prefix = process.env.BOT_PREFIX || '.'
 global.autoRecording = false
 global.autoTyping = false
 global.autorecordtype = false
-global.autoread = process.env.AUTO_READ || false
 global.autobio = false
 global.anti92 = false
 global.owneroff = false

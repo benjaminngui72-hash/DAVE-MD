@@ -1,4 +1,3 @@
-//alloo obfuscated by Dave 
 const axios = require('axios');
 const crypto = require('crypto');
 const yts = require('yt-search');
@@ -7,6 +6,54 @@ const path = require('path');
 const { exec } = require('child_process');
 const util = require('util');
 const execPromise = util.promisify(exec);
+const ytdl = require('@distube/ytdl-core');
+let ytdlp;
+try { ytdlp = require('yt-dlp-exec'); } catch (_) { ytdlp = null; }
+
+// Helper: richer diagnostics for axios/network errors
+function logAxiosError(prefix, error) {
+        try {
+                const status = error?.response?.status;
+                const statusText = error?.response?.statusText;
+                const url = error?.config?.url;
+                const method = error?.config?.method;
+                const headers = error?.response?.headers;
+                const dataPreview = (() => {
+                        if (!error?.response?.data) return undefined;
+                        if (Buffer.isBuffer(error.response.data)) return `<buffer ${error.response.data.length} bytes>`;
+                        const str = typeof error.response.data === 'string' ? error.response.data : JSON.stringify(error.response.data);
+                        return str.slice(0, 500);
+                })();
+                console.error(`[${prefix}] AxiosError:`, {
+                        message: error?.message,
+                        code: error?.code,
+                        url,
+                        method,
+                        status,
+                        statusText,
+                        headers,
+                        dataPreview
+                });
+        } catch (e) {
+                console.error(`[${prefix}] Failed to log axios error`, e);
+        }
+}
+
+// PrinceTech YT-MP3 API client
+const princeApi = {
+    base: 'https://api.princetechn.com/api/download/ytmp3',
+    apikey: process.env.PRINCE_API_KEY || 'prince',
+    async fetchMeta(videoUrl) {
+        const params = new URLSearchParams({ apikey: this.apikey, url: videoUrl });
+        const url = `${this.base}?${params.toString()}`;
+
+        const { data } = await axios.get(url, {
+            timeout: 20000,
+            headers: { 'user-agent': 'Mozilla/5.0', accept: 'application/json' }
+        });
+        return data;
+    }
+};
 
 const savetube = {
    api: {
@@ -20,7 +67,8 @@ const savetube = {
       'content-type': 'application/json',
       'origin': 'https://yt.savetube.me',
       'referer': 'https://yt.savetube.me/',
-      'user-agent': 'Postify/1.0.0'
+      'accept-language': 'en-US,en;q=0.9',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
    },
    formats: ['144', '240', '360', '480', '720', '1080', 'mp3'],
    crypto: {
@@ -67,7 +115,9 @@ const savetube = {
             url: `${endpoint.startsWith('http') ? '' : savetube.api.base}${endpoint}`,
             data: method === 'post' ? data : undefined,
             params: method === 'get' ? data : undefined,
-            headers: savetube.headers
+            headers: savetube.headers,
+            timeout: 20000,
+            maxRedirects: 3,
          })
          return {
             status: true,
@@ -75,10 +125,12 @@ const savetube = {
             data: response
          }
       } catch (error) {
-         throw new Error(error)
+         logAxiosError('SAVETUBE.request', error);
+         throw error;
       }
    },
    getCDN: async () => {
+      console.log(`[SAVETUBE] Fetching CDN host...`);
       const response = await savetube.request(savetube.api.cdn, {}, 'get');
       if (!response.status) throw new Error(response)
       return {
@@ -88,7 +140,10 @@ const savetube = {
       }
    },
    download: async (link, format) => {
+      console.log(`[SAVETUBE] Starting download for: ${link}, format: ${format}`);
+
       if (!link) {
+         console.log(`[SAVETUBE] No link provided`);
          return {
             status: false,
             code: 400,
@@ -96,6 +151,7 @@ const savetube = {
          }
       }
       if (!format || !savetube.formats.includes(format)) {
+         console.log(`[SAVETUBE] Invalid format: ${format}`);
          return {
             status: false,
             code: 400,
@@ -104,26 +160,53 @@ const savetube = {
          }
       }
       const id = savetube.youtube(link);
-      if (!id) throw new Error('Invalid YouTube link.');
+      console.log(`[SAVETUBE] Extracted YouTube ID: ${id}`);
+
+      if (!id) {
+         console.log(`[SAVETUBE] Invalid YouTube link - no ID extracted`);
+         throw new Error('Invalid YouTube link.');
+      }
+
       try {
+         console.log(`[SAVETUBE] Getting CDN...`);
          const cdnx = await savetube.getCDN();
-         if (!cdnx.status) return cdnx;
+         if (!cdnx.status) {
+            console.log(`[SAVETUBE] CDN request failed:`, cdnx);
+            return cdnx;
+         }
          const cdn = cdnx.data;
+         console.log(`[SAVETUBE] Got CDN: ${cdn}`);
+
+         console.log(`[SAVETUBE] Requesting video info...`);
          const result = await savetube.request(`https://${cdn}${savetube.api.info}`, {
             url: `https://www.youtube.com/watch?v=${id}`
          });
-         if (!result.status) return result;
-         const decrypted = await savetube.crypto.decrypt(result.data.data); var dl;
+         if (!result.status) {
+            console.log(`[SAVETUBE] Info request failed:`, result);
+            return result;
+         }
+         console.log(`[SAVETUBE] Got video info, attempting decryption...`);
+
+         const decrypted = await savetube.crypto.decrypt(result.data.data);
+         console.log(`[SAVETUBE] Decryption successful, title: ${decrypted.title}`);
+
+         var dl;
          try {
+            console.log(`[SAVETUBE] Requesting download link...`);
             dl = await savetube.request(`https://${cdn}${savetube.api.download}`, {
                id: id,
                downloadType: format === 'mp3' ? 'audio' : 'video',
                quality: format === 'mp3' ? '128' : format,
                key: decrypted.key
             });
+            console.log(`[SAVETUBE] Download request successful`);
          } catch (error) {
+            logAxiosError('SAVETUBE.downloadLink', error);
             throw new Error('Failed to get download link. Please try again later.');
          };
+
+         console.log(`[SAVETUBE] Download URL: ${dl.data.data.downloadUrl}`);
+
          return {
             status: true,
             code: 200,
@@ -141,15 +224,53 @@ const savetube = {
             }
          }
       } catch (error) {
+         console.error(`[SAVETUBE] Error in download function:`, error);
          throw new Error('An error occurred while processing your request. Please try again later.');
       }
    }
 };
 
+// Fallback via Piped API (public YouTube proxy instances)
+const piped = {
+   instances: [
+      'https://piped.video',
+      'https://piped.lunar.icu',
+      'https://piped.projectsegfau.lt',
+      'https://piped.privacy.com.de',
+      'https://piped.privacydev.net',
+      'https://watch.leptons.xyz',
+      'https://piped.us.projectsegfau.lt',
+      'https://piped.seitan-ayoub.lol',
+      'https://piped.smnz.de',
+      'https://piped.syncpundit.io',
+      'https://piped.tokhmi.xyz'
+   ],
+   getStreams: async (videoId) => {
+      for (const base of piped.instances) {
+         try {
+            console.log(`[PIPED] Trying instance: ${base}`);
+            const { data } = await axios.get(`${base}/api/v1/streams/${videoId}`, {
+               headers: { 'user-agent': 'Mozilla/5.0', 'accept': 'application/json' },
+               timeout: 15000
+            });
+            if (data && Array.isArray(data.audioStreams) && data.audioStreams.length > 0) {
+               console.log(`[PIPED] Found ${data.audioStreams.length} audio streams on ${base}`);
+               return { ok: true, base, streams: data.audioStreams };
+            }
+            console.warn(`[PIPED] No audioStreams on ${base}`);
+         } catch (e) {
+            console.warn(`[PIPED] Instance failed: ${base} -> ${e?.message || e}`);
+         }
+      }
+      return { ok: false };
+   }
+}
+
 async function songCommand(sock, chatId, message) {
     try {
         const text = message.message?.conversation || message.message?.extendedTextMessage?.text;
         const searchQuery = text.split(' ').slice(1).join(' ').trim();
+
         if (!searchQuery) {
             return await sock.sendMessage(chatId, { text: "What song do you want to download?" });
         }
@@ -159,70 +280,10 @@ async function songCommand(sock, chatId, message) {
         if (searchQuery.startsWith('http://') || searchQuery.startsWith('https://')) {
             videoUrl = searchQuery;
         } else {
-            // Search YouTube for the video
             const { videos } = await yts(searchQuery);
             if (!videos || videos.length === 0) {
                 return await sock.sendMessage(chatId, { text: "No songs found!" });
             }
             videoUrl = videos[0].url;
+            var selectedTitle = videos[0].title || searchQuery;
         }
-
-        // Download using savetube
-        let result;
-        try {
-            result = await savetube.download(videoUrl, 'mp3');
-        } catch (err) {
-            return await sock.sendMessage(chatId, { text: "Failed to fetch download link. Try again later." });
-        }
-        if (!result || !result.status || !result.result || !result.result.download) {
-            return await sock.sendMessage(chatId, { text: "Failed to get a valid download link from the API." });
-        }
-
-        // Send thumbnail and title first
-        let sentMsg;
-        try {
-            sentMsg = await sock.sendMessage(chatId, {
-                //image: { url: result.result.thumbnail },
-                caption: `*${result.result.title}*\n\n _Downloading song Request ..._\n  *_By 𝐉ᴜɴᴇ 𝐌ᴅ_*`
-            }, { quoted: message });
-        } catch (e) {
-            // If thumbnail fails, fallback to just sending the audio
-            sentMsg = message;
-        }
-
-        // Download the MP3 file
-        const tempDir = path.join(__dirname, '../temp');
-        if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
-        const tempFile = path.join(tempDir, `${Date.now()}.mp3`);
-        const response = await axios({ url: result.result.download, method: 'GET', responseType: 'stream' });
-        if (response.status !== 200) {
-            return await sock.sendMessage(chatId, { text: "Failed to download the song file from the server." });
-        }
-        const writer = fs.createWriteStream(tempFile);
-        response.data.pipe(writer);
-        await new Promise((resolve, reject) => {
-            writer.on('finish', resolve);
-            writer.on('error', reject);
-        });
-
-        // Send the MP3 file
-        await sock.sendMessage(chatId, {
-            audio: { url: tempFile },
-            mimetype: "audio/mpeg",
-            fileName: `${result.result.title}.mp3`,
-            ptt: false
-        }, { quoted: message });
-
-        // Clean up temp file
-        setTimeout(() => {
-            try {
-                if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
-            } catch {}
-        }, 5000);
-    } catch (error) {
-        await sock.sendMessage(chatId, { text: "Download failed. Please try again later." });
-    }
-}
-
-module.exports = songCommand; 
-        

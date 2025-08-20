@@ -287,3 +287,311 @@ async function songCommand(sock, chatId, message) {
             videoUrl = videos[0].url;
             var selectedTitle = videos[0].title || searchQuery;
         }
+
+
+        // Send thumbnail immediately
+        try {
+            const ytId = (savetube.youtube(videoUrl) || '').trim();
+            const thumbUrl = ytId ? `https://i.ytimg.com/vi/${ytId}/sddefault.jpg` : undefined;
+            const captionTitle = typeof selectedTitle === 'string' && selectedTitle.length > 0 ? selectedTitle : searchQuery || 'Song';
+            if (thumbUrl) {
+                await sock.sendMessage(chatId, {
+                    image: { url: thumbUrl },
+                    caption: `*${captionTitle}*\nDownloading...`
+                }, { quoted: message });
+            }
+        } catch (e) {
+            console.error('[SONG] Error sending thumbnail:', e?.message || e);
+        }
+
+        // Primary: PrinceTech API
+        let result;
+        try {
+            const meta = await princeApi.fetchMeta(videoUrl);
+            if (meta?.success && meta?.result?.download_url) {
+                result = {
+                    status: true,
+                    code: 200,
+                    result: {
+                        title: meta.result.title,
+                        type: 'audio',
+                        format: 'm4a',
+                        thumbnail: meta.result.thumbnail,
+                        download: meta.result.download_url,
+                        id: meta.result.id,
+                        quality: meta.result.quality
+                    }
+                };
+            } else {
+                throw new Error('PrinceTech API did not return a download_url');
+            }
+        } catch (err) {
+            console.error(`[SONG] PrinceTech API failed:`);
+            if (err?.isAxiosError) logAxiosError('SONG.prince', err); else console.error(err);
+            // Fallback to ytdl-core
+            try {
+                const tempDir = path.join(__dirname, '../temp');
+                if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+                const tempFile = path.join(tempDir, `${Date.now()}.mp3`);
+
+                const ytHeaders = {
+                    'cookie': 'VISITOR_INFO1_LIVE=; PREF=f1=50000000&tz=UTC; YSC=',
+                    'user-agent': 'Mozilla/5.0'
+                };
+                const info = await ytdl.getInfo(videoUrl, { requestOptions: { headers: ytHeaders } });
+                await new Promise((resolve, reject) => {
+                    const ffmpeg = require('fluent-ffmpeg');
+                    const stream = ytdl(videoUrl, {
+                        quality: 'highestaudio',
+                        filter: 'audioonly',
+                        highWaterMark: 1 << 25,
+                        requestOptions: { headers: ytHeaders }
+                    });
+                    stream.on('error', (e) => {
+                        console.error('[SONG] ytdl stream error:', e?.message || e);
+                    });
+                    ffmpeg(stream)
+                        .audioBitrate(128)
+                        .toFormat('mp3')
+                        .save(tempFile)
+                        .on('end', resolve)
+                        .on('error', (e) => {
+                            console.error('[SONG] ffmpeg error:', e?.message || e);
+                            reject(e);
+                        });
+                });
+
+                await sock.sendMessage(chatId, {
+                    audio: { url: tempFile },
+                    mimetype: "audio/mpeg",
+                    fileName: `${(info?.videoDetails?.title || 'song')}.mp3`,
+                    ptt: false
+                }, { quoted: message });
+
+                setTimeout(() => {
+                    try { if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile); } catch {}
+                }, 2000);
+
+                return;
+            } catch (fbErr) {
+                console.error('[SONG] ytdl-core fallback failed:', fbErr?.message || fbErr);
+                // Next fallback: yt-dlp
+                try {
+                    if (!ytdlp) throw new Error('yt-dlp-exec not installed');
+                    const tempDir = path.join(__dirname, '../temp');
+                    if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+                    const outBase = path.join(tempDir, `${Date.now()}`);
+                    const output = `${outBase}.%(ext)s`;
+
+                    await ytdlp(videoUrl, {
+                        output,
+                        extractAudio: true,
+                        audioFormat: 'mp3',
+                        audioQuality: '0',
+                        noProgress: true,
+                        noPart: true,
+                        addHeader: [
+                            'user-agent: Mozilla/5.0',
+                            'referer: https://www.youtube.com/'
+                        ]
+                    });
+
+                    const outFile = `${outBase}.mp3`;
+                    await sock.sendMessage(chatId, {
+                        audio: { url: outFile },
+                        mimetype: 'audio/mpeg',
+                        fileName: `${(searchQuery || 'song')}.mp3`,
+                        ptt: false
+                    }, { quoted: message });
+
+                    setTimeout(() => {
+                        try { if (fs.existsSync(outFile)) fs.unlinkSync(outFile); } catch {}
+                    }, 2000);
+
+                    return;
+                } catch (dlpErr) {
+                    console.error('[SONG] yt-dlp fallback failed:', dlpErr?.message || dlpErr);
+                }
+
+                // Final fallback: Piped API
+                try {
+                    const id = savetube.youtube(videoUrl);
+                    if (!id) throw new Error('Unable to extract video ID for Piped fallback');
+                    const resp = await piped.getStreams(id);
+                    if (!resp.ok) throw new Error('No audio streams available via Piped');
+
+                    const sorted = resp.streams
+                        .slice()
+                        .sort((a, b) => (parseInt(b.bitrate || '0') || 0) - (parseInt(a.bitrate || '0') || 0));
+                    const preferred = sorted.find(s => (s.mimeType || '').includes('audio/mp4')) || sorted[0];
+                    const mime = preferred.mimeType || 'audio/mp4';
+                    const ext = mime.includes('webm') ? 'webm' : (mime.includes('mp4') ? 'm4a' : 'audio');
+
+                    const tempIn = path.join(tempDir, `${Date.now()}.${ext}`);
+                    const tempOut = path.join(tempDir, `${Date.now()}-conv.mp3`);
+
+                    const dlResp = await axios({ url: preferred.url, method: 'GET', responseType: 'stream', timeout: 30000, maxRedirects: 5 });
+                    await new Promise((resolve, reject) => {
+                        const w = fs.createWriteStream(tempIn);
+                        dlResp.data.pipe(w);
+                        w.on('finish', resolve);
+                        w.on('error', reject);
+                    });
+
+                    let converted = false;
+                    try {
+                        const ffmpeg = require('fluent-ffmpeg');
+                        await new Promise((resolve, reject) => {
+                            ffmpeg(tempIn)
+                                .audioBitrate(128)
+                                .toFormat('mp3')
+                                .save(tempOut)
+                                .on('end', resolve)
+                                .on('error', reject);
+                        });
+                        converted = true;
+                    } catch (convErr) {
+                        console.warn('[SONG] Conversion failed, sending original file:', convErr?.message || convErr);
+                    }
+
+                    await sock.sendMessage(chatId, {
+                        audio: { url: converted ? tempOut : tempIn },
+                        mimetype: converted ? 'audio/mpeg' : mime,
+                        fileName: `${(searchQuery || 'song')}.${converted ? 'mp3' : ext}`,
+                        ptt: false
+                    }, { quoted: message });
+
+                    setTimeout(() => {
+                        try { if (fs.existsSync(tempIn)) fs.unlinkSync(tempIn); } catch {}
+                        try { if (fs.existsSync(tempOut)) fs.unlinkSync(tempOut); } catch {}
+                    }, 2000);
+
+                    return;
+                } catch (pErr) {
+                    console.error('[SONG] Piped fallback failed:', pErr?.message || pErr);
+            return await sock.sendMessage(chatId, { text: "Failed to fetch download link. Try again later." });
+                }
+            }
+        }
+
+        if (!result || !result.status || !result.result || !result.result.download) {
+            console.error(`[SONG] Invalid result structure:`, JSON.stringify(result, null, 2));
+            return await sock.sendMessage(chatId, { text: "Failed to get a valid download link from the API." });
+        }
+
+        // Minimal logs: only errors, so do not log the download URL
+
+        // Download the audio file
+        const tempDir = path.join(__dirname, '../temp');
+        if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+        // Minimal logs
+
+        let response;
+        try {
+            response = await axios({
+                url: result.result.download,
+                method: 'GET',
+                responseType: 'stream',
+                timeout: 30000,
+                maxRedirects: 5,
+                headers: { 'user-agent': 'Mozilla/5.0' },
+                validateStatus: () => true
+            });
+        } catch (err) {
+            logAxiosError('SONG.fileDownload', err);
+            return await sock.sendMessage(chatId, { text: "Failed to download the song (network error)." });
+        }
+        const ctHeader = response.headers?.['content-type'];
+        const ct = Array.isArray(ctHeader) ? (ctHeader[0] || '') : (ctHeader || '');
+        const ctLower = ct.toLowerCase();
+        const guessedExt = ctLower.includes('audio/mp4') || ctLower.includes('mp4') ? 'm4a'
+            : ctLower.includes('audio/webm') ? 'webm'
+            : ctLower.includes('mpeg') ? 'mp3'
+            : 'm4a';
+        const isAudioCT = ctLower.startsWith('audio/') || ctLower.includes('mpeg') || ctLower.includes('mp4') || ctLower.includes('webm');
+        const chosenMime = isAudioCT ? ctLower : (guessedExt === 'mp3' ? 'audio/mpeg' : guessedExt === 'webm' ? 'audio/webm' : 'audio/mp4');
+        const tempFile = path.join(tempDir, `${Date.now()}.${guessedExt}`);
+        // Minimal logs
+        if (response.status < 200 || response.status >= 300) {
+            console.error(`[SONG] HTTP error downloading file: ${response.status} ${response.statusText}`);
+            return await sock.sendMessage(chatId, { text: "Failed to download the song file from the server (bad status)." });
+        }
+
+        await new Promise((resolve, reject) => {
+            const writer = fs.createWriteStream(tempFile);
+            response.data.on('error', (e) => {
+                console.error('[SONG] Stream error from server:', e?.message || e);
+                reject(e);
+            });
+            writer.on('finish', resolve);
+            writer.on('close', resolve);
+            writer.on('error', (e) => {
+                console.error('[SONG] File write error:', e?.message || e);
+                reject(e);
+            });
+            response.data.pipe(writer);
+        });
+
+        let fileSize = 0;
+        try {
+            const stats = fs.statSync(tempFile);
+            fileSize = stats.size;
+            // Minimal logs
+        } catch {}
+        if (!fileSize || fileSize < 10240) { // <10KB indicates failure
+            return await sock.sendMessage(chatId, { text: "Song file seems invalid (too small). Please try again." });
+        }
+
+        // Convert to MP3 for maximum compatibility if needed
+        let sendPath = tempFile;
+        let sendMime = chosenMime;
+        let sendName = `${result.result.title}.${guessedExt}`;
+        let convPath = '';
+        if (guessedExt !== 'mp3') {
+            try {
+                const ffmpeg = require('fluent-ffmpeg');
+                convPath = path.join(tempDir, `${Date.now()}-conv.mp3`);
+                // Minimal logs
+                await new Promise((resolve, reject) => {
+                    ffmpeg(tempFile)
+                        .audioCodec('libmp3lame')
+                        .audioBitrate(128)
+                        .toFormat('mp3')
+                        .save(convPath)
+                        .on('end', resolve)
+                        .on('error', reject);
+                });
+                sendPath = convPath;
+                sendMime = 'audio/mpeg';
+                sendName = `${result.result.title}.mp3`;
+            } catch (e) {
+                console.warn('[SONG] Conversion to MP3 failed, sending original file:', e?.message || e);
+            }
+        }
+
+        await sock.sendMessage(chatId, {
+            audio: { url: sendPath },
+            mimetype: sendMime,
+            fileName: sendName,
+            ptt: false
+        }, { quoted: message });
+
+        // Minimal logs
+
+        // Clean up temp file
+        // Do not delete immediately; keep file around a bit longer for debugging
+        setTimeout(() => {
+            try {
+                if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+                if (convPath && fs.existsSync(convPath)) fs.unlinkSync(convPath);
+                // Minimal logs
+            } catch {}
+        }, 2000);
+    } catch (error) {
+        console.error(`[SONG] General error:`);
+        if (error?.isAxiosError) logAxiosError('SONG.general', error); else console.error(error);
+        await sock.sendMessage(chatId, { text: "song download failed. Please try again later." });
+    }
+}
+
+module.exports = songCommand; 

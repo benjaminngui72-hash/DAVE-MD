@@ -12,6 +12,11 @@
 
 ---
 
+
+under update aware of bot not connecting to Whatsapp 
+
+
+
 ## 🍴 Fork This Repository
 Click below to fork DAVE-MD to your GitHub account:
 
